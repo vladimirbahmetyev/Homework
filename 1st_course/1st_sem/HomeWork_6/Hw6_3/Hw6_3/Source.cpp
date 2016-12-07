@@ -69,6 +69,6 @@ int main()
 	}
 	cout << endl;
 	delete stack;
-	stack == nullptr;
+	stack = nullptr;
 	return 0;
 }
