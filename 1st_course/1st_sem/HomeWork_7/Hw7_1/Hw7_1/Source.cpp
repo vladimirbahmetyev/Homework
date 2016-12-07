@@ -39,7 +39,7 @@ void addNumber(tree *binaryTree, int value)
 			}
 			else
 			{
-				addNumber(binaryTree->rightSon), value);
+				addNumber(binaryTree->rightSon, value);
 			}
 		}
 	}
@@ -130,14 +130,14 @@ void deleteElementFromTree(tree *binaryTree, int value)
 	}
 	if ((!binaryTree->leftSon) && binaryTree->rightSon)
 	{
-		tree **oldElement = binaryTree;
+		tree *oldElement = binaryTree;
 		binaryTree->rightSon = binaryTree->rightSon;
 		delete oldElement;
 		return;
 	}
 	if (binaryTree->leftSon && (!binaryTree->rightSon))
 	{
-		tree **oldElement = binaryTree;
+		tree *oldElement = binaryTree;
 		binaryTree->rightSon = binaryTree->leftSon;
 		delete oldElement;
 		return;
