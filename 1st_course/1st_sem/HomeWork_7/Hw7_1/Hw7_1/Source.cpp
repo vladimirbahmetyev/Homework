@@ -11,49 +11,49 @@ struct tree
 	int value;
 };
 
-void addNumber(tree **binaryTrea, int value)
+void addNumber(tree *binaryTree, int value)
 {
-	if (value == (**binaryTrea).value)
+	if (value == binaryTree->value)
 	{
 		cout << "Данный элемент уже есть в дереве" << endl;
 		return;
 	}
 	else
 	{
-		if (value < (**binaryTrea).value)
+		if (value < binaryTree->value)
 		{
-			if (!(**binaryTrea).leftSon)
+			if (!binaryTree->leftSon)
 			{
-				(**binaryTrea).leftSon = new tree{ nullptr, nullptr, value };
+				binaryTree->leftSon = new tree{ nullptr, nullptr, value };
 			}
 			else
 			{
-				addNumber(&((**binaryTrea).leftSon), value);
+				addNumber(binaryTree->leftSon, value);
 			}
 		}
 		else
 		{
-			if (!(**binaryTrea).rightSon)
+			if (!binaryTree->rightSon)
 			{
-				(**binaryTrea).rightSon = new tree{ nullptr, nullptr, value };
+				binaryTree->rightSon = new tree{ nullptr, nullptr, value };
 			}
 			else
 			{
-				addNumber(&((**binaryTrea).rightSon), value);
+				addNumber(binaryTree->rightSon), value);
 			}
 		}
 	}
 }
 
-bool foundingOfNumber(tree **binaryTree, int value)
+bool foundingOfNumber(tree *binaryTree, int value)
 {
-	if ((**binaryTree).value != value)
+	if (binaryTree->value != value)
 	{
-		if ((**binaryTree).value > value)
+		if (binaryTree->value > value)
 		{
-			if ((**binaryTree).leftSon)
+			if (binaryTree->leftSon)
 			{
-				return foundingOfNumber(&(**binaryTree).leftSon, value);
+				return foundingOfNumber(binaryTree->leftSon, value);
 			}
 			else
 			{
@@ -61,11 +61,11 @@ bool foundingOfNumber(tree **binaryTree, int value)
 				return false;
 			}
 		}
-		if ((**binaryTree).value < value)
+		if (binaryTree->value < value)
 		{
-			if ((**binaryTree).rightSon)
+			if (binaryTree->rightSon)
 			{
-				return foundingOfNumber(&(**binaryTree).rightSon, value);
+				return foundingOfNumber(binaryTree->rightSon, value);
 			}
 			else
 			{
@@ -81,64 +81,64 @@ bool foundingOfNumber(tree **binaryTree, int value)
 	}
 }
 
-void printBinaryTreeIncrease(tree **binaryTree)
+void printBinaryTreeIncrease(tree *binaryTree)
 {
-	if ((**binaryTree).leftSon)
+	if (binaryTree->leftSon)
 	{
-		printBinaryTreeIncrease(&(**binaryTree).leftSon);
+		printBinaryTreeIncrease(binaryTree->leftSon);
 	}
-	cout << (**binaryTree).value << " ";
-	if ((**binaryTree).rightSon)
+	cout << binaryTree->value << " ";
+	if (binaryTree->rightSon)
 	{
-		printBinaryTreeIncrease(&(**binaryTree).rightSon);
+		printBinaryTreeIncrease(binaryTree->rightSon);
 	}
 }
 
-void printBinaryTreeDecrease(tree **binaryTree)
+void printBinaryTreeDecrease(tree *binaryTree)
 {
-	if ((**binaryTree).rightSon)
+	if (binaryTree->rightSon)
 	{
-		printBinaryTreeDecrease(&(**binaryTree).rightSon);
+		printBinaryTreeDecrease(binaryTree->rightSon);
 	}
-	cout << (**binaryTree).value << " ";
-	if ((**binaryTree).leftSon)
+	cout << binaryTree->value << " ";
+	if (binaryTree->leftSon)
 	{
-		printBinaryTreeDecrease(&(**binaryTree).leftSon);
+		printBinaryTreeDecrease(binaryTree->leftSon);
 	}
 }
 
-void deleteElementFromTree(tree **binaryTree, int value)
+void deleteElementFromTree(tree *binaryTree, int value)
 {
-	if (((**binaryTree).value > value) || ((**binaryTree).value < value))
+	if ((binaryTree->value > value) || (binaryTree->value < value))
 	{
-		if ((**binaryTree).value > value)
+		if (binaryTree->value > value)
 		{
-			deleteElementFromTree(&(**binaryTree).leftSon, value);
+			deleteElementFromTree(binaryTree->leftSon, value);
 			return;
 		}
 		else
 		{
-			deleteElementFromTree(&(**binaryTree).rightSon, value);
+			deleteElementFromTree(binaryTree->rightSon, value);
 			return;
 		}
 	}
-	if (!((**binaryTree).leftSon || (**binaryTree).rightSon))
+	if (!(binaryTree->leftSon || binaryTree->rightSon))
 	{
 		delete binaryTree;
 		binaryTree = nullptr;
 		return;
 	}
-	if ((!(**binaryTree).leftSon) && (**binaryTree).rightSon)
+	if ((!binaryTree->leftSon) && binaryTree->rightSon)
 	{
 		tree **oldElement = binaryTree;
-		(**binaryTree).rightSon = (**binaryTree).rightSon;
+		binaryTree->rightSon = binaryTree->rightSon;
 		delete oldElement;
 		return;
 	}
-	if ((**binaryTree).leftSon && (!(**binaryTree).rightSon))
+	if (binaryTree->leftSon && (!binaryTree->rightSon))
 	{
 		tree **oldElement = binaryTree;
-		(**binaryTree).rightSon = (**binaryTree).leftSon;
+		binaryTree->rightSon = binaryTree->leftSon;
 		delete oldElement;
 		return;
 	}
@@ -171,7 +171,7 @@ int main()
 			int number = 0;
 			cin >> number;
 			cout << endl;
-			addNumber(&root, number);
+			addNumber(root, number);
 			break;
 		}
 		case(2):
@@ -180,9 +180,9 @@ int main()
 			int number = 0;
 			cin >> number;
 			cout << endl;
-			if (foundingOfNumber(&root, number))
+			if (foundingOfNumber(root, number))
 			{
-				deleteElementFromTree(&root, number);
+				deleteElementFromTree(root, number);
 			}
 			break;
 		}
@@ -192,18 +192,18 @@ int main()
 			int number = 0;
 			cin >> number;
 			cout << endl;
-			foundingOfNumber(&root, number);
+			foundingOfNumber(root, number);
 			break;
 		}
 		case(4):
 		{
-			printBinaryTreeIncrease(&root);
+			printBinaryTreeIncrease(root);
 			cout << endl;
 			break;
 		}
 		case(5):
 		{
-			printBinaryTreeDecrease(&root);
+			printBinaryTreeDecrease(root);
 			cout << endl;
 			break;
 		}
