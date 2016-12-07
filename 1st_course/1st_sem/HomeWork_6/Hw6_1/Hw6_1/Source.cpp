@@ -89,5 +89,4 @@ void main()
 	translationStringToAnswer(numbers, example);
 	printf("%s %d", "Ответ: ", numbers->value);
 	printf("\n");
-	system("pause");
 }
