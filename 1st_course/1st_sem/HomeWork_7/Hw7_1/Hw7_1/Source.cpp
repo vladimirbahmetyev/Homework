@@ -11,7 +11,7 @@ struct tree
 	int value;
 };
 
-void addNumber(tree *binaryTree, int value)
+void addNumber(tree *&binaryTree, int value)
 {
 	if (value == binaryTree->value)
 	{
@@ -45,7 +45,7 @@ void addNumber(tree *binaryTree, int value)
 	}
 }
 
-bool foundingOfNumber(tree *binaryTree, int value)
+bool foundingOfNumber(tree *&binaryTree, int value)
 {
 	if (binaryTree->value != value)
 	{
@@ -81,7 +81,7 @@ bool foundingOfNumber(tree *binaryTree, int value)
 	}
 }
 
-void printBinaryTreeIncrease(tree *binaryTree)
+void printBinaryTreeIncrease(tree *&binaryTree)
 {
 	if (binaryTree->leftSon)
 	{
@@ -94,7 +94,7 @@ void printBinaryTreeIncrease(tree *binaryTree)
 	}
 }
 
-void printBinaryTreeDecrease(tree *binaryTree)
+void printBinaryTreeDecrease(tree *&binaryTree)
 {
 	if (binaryTree->rightSon)
 	{
@@ -107,7 +107,7 @@ void printBinaryTreeDecrease(tree *binaryTree)
 	}
 }
 
-void deleteElementFromTree(tree *binaryTree, int value)
+void deleteElementFromTree(tree *&binaryTree, int value)
 {
 	if ((binaryTree->value > value) || (binaryTree->value < value))
 	{
@@ -131,17 +131,26 @@ void deleteElementFromTree(tree *binaryTree, int value)
 	if ((!binaryTree->leftSon) && binaryTree->rightSon)
 	{
 		tree *oldElement = binaryTree;
-		binaryTree->rightSon = binaryTree->rightSon;
+		binaryTree = binaryTree->rightSon;
 		delete oldElement;
+		oldElement = nullptr;
 		return;
 	}
 	if (binaryTree->leftSon && (!binaryTree->rightSon))
 	{
 		tree *oldElement = binaryTree;
-		binaryTree->rightSon = binaryTree->leftSon;
+		binaryTree = binaryTree->leftSon;
 		delete oldElement;
+		oldElement = nullptr;
 		return;
 	}
+	tree *&newElement = binaryTree->leftSon;
+	while (newElement->rightSon)
+	{
+		newElement = newElement->rightSon;
+	}
+	binaryTree->value = newElement->value;
+	deleteElementFromTree(newElement, newElement->value);
 }
 
 int main()
