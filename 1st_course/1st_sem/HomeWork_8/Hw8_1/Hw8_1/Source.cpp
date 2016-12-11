@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include "splayTree.h"
 
-int main()
+void main()
 {
 	setlocale(LC_ALL, "Russian");
 	int command = -1;
@@ -21,8 +21,9 @@ int main()
 		cout << "Введите 1 чтобы добавить строчку" << endl;		
 		cout << "Введите 2 чтобы удалить элемент строчку по заданному ключу" << endl;		
 		cout << "Введите 3 чтобы проверить дерево на наличие данного ключа" << endl;
-		cout << "Введите 4 чтобы распечатать значение по заданному ключу" << endl;
+		cout << "Введите 4 чтобы распечатать значение по заданному ключу" << endl << endl;
 		cin >> command;
+		cout << endl;
 		switch (command)
 		{
 		case (1):
@@ -31,9 +32,10 @@ int main()
 			int number = 0;
 			cin >> number;
 			cout << endl;
-			cout << "Введите строчку " << endl;
+			cout << "Введите строчку ";
 			string inputString = {};
 			cin >> inputString;
+			cout << endl;
 			addString(root, number, inputString);
 			break;
 		}
@@ -43,10 +45,7 @@ int main()
 			int number = 0;
 			cin >> number;
 			cout << endl;
-			if (foundingOfNumber(root, number))
-			{
-				deleteStringFromTree(root, number);
-			}
+			deleteStringFromTree(root, number);
 			cout << "Строка успешно удалена" << endl << endl;
 			break;
 		}
@@ -56,7 +55,14 @@ int main()
 			int number = 0;
 			cin >> number;
 			cout << endl;
-			foundingOfNumber(root, number);
+			if (foundingOfNumber(root, number))
+			{
+				cout << "Данный ключ содержится в дереве" << endl << endl;
+			}
+			else
+			{
+				cout << "Данного ключа нет в дереве" << endl << endl;
+			}
 			break;
 		}
 		case(4):
@@ -64,10 +70,11 @@ int main()
 			cout << "Введите ключ строки, которую нужно распечатать ";
 			int number = 0;
 			cin >> number;
+			cout << endl;
 			printStringFromTree(root, number);
 			break;
 		}
 		}
 	}
-	return 0;
+	deleteSplayTree(root);
 }
