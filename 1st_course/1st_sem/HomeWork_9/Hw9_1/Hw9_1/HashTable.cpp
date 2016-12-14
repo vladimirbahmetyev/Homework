@@ -8,20 +8,27 @@ int hashKey(string word)
 		hash = (int)word[i] * hash;
 	}
 	hash = hash % 10000;
-	return hash;
+	if (hash > 0)
+	{
+		return hash;
+	}
+	else
+	{
+		return hash * -1;
+	}
 }
 
 bool isWordInList(List *&head, string word)
 {
+	if (!head)
+	{
+		return false;
+	}
 	if (word == head->word)
 	{
 		head->value++;
 		return true;
-	}
-	if (!head->next)
-	{
-		return false;
-	}
+	}	
 	return isWordInList(head->next, word);
 }
 

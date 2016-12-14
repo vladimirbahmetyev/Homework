@@ -15,7 +15,7 @@ void main()
 	}
 	for (int i = 0; i < 10000; i++)
 	{
-		if (hashTable[i]->next)
+		if (hashTable[i])
 		{
 			printList(hashTable[i]);
 		}
