@@ -22,6 +22,9 @@ void zag(Tree  *&binaryTree);
 //Check is value in tree
 bool foundingOfNumber(Tree *&binaryTree, int value);
 
+//Splaying root to key
+void splayToKey(Tree *&binaryTree, int value);
+
 //Add string to tree
 void addString(Tree *&binaryTree, int value, string inputString);
 
@@ -33,3 +36,6 @@ void printStringFromTree(Tree *&binaryTree, int value);
 
 //Delete Splay Tree
 void deleteSplayTree(Tree *&binaryTree);
+
+//Simple Test
+void test();

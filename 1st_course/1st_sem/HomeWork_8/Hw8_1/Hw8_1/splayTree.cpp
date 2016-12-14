@@ -24,15 +24,45 @@ void zag(Tree  *&binaryTree)
 
 bool foundingOfNumber(Tree *&binaryTree, int value)
 {
-	while (binaryTree->value > value && binaryTree && binaryTree->leftSon)
+	if (binaryTree->value == value)
 	{
-		zig(binaryTree);
+		return true;
 	}
-	while (binaryTree->value < value && binaryTree&& binaryTree->rightSon)
+	bool leftBranch = binaryTree->leftSon;
+	bool rightBranch = binaryTree->rightSon;
+	if (binaryTree->leftSon)
 	{
-		zag(binaryTree);
+		leftBranch = foundingOfNumber(binaryTree->leftSon, value);
 	}
-	return binaryTree->value == value;
+	if (binaryTree->rightSon)
+	{
+		rightBranch = foundingOfNumber(binaryTree->rightSon, value);
+	}
+	return leftBranch || rightBranch;
+}
+
+void splayToKey(Tree *&binaryTree, int value)
+{
+	if (binaryTree->value == value)
+	{
+		return;
+	}
+	if (binaryTree->leftSon)
+	{
+		if (foundingOfNumber(binaryTree->leftSon, value))
+		{
+			splayToKey(binaryTree->leftSon, value);
+			zig(binaryTree);
+		}
+	}
+	if(binaryTree->rightSon)
+	{
+		if (foundingOfNumber(binaryTree->rightSon, value))
+		{
+			splayToKey(binaryTree->rightSon, value);
+			zag(binaryTree);
+		}
+	}
 }
 
 void addString(Tree *&binaryTree, int value, string inputString)
@@ -71,13 +101,14 @@ void addString(Tree *&binaryTree, int value, string inputString)
 			}
 		}
 	}
-	foundingOfNumber(binaryTree, value);
+	splayToKey(binaryTree, value);
 }
 
 void deleteStringFromTree(Tree *&binaryTree, int value)
 {
 	if (foundingOfNumber(binaryTree, value))
 	{
+		splayToKey(binaryTree, value);
 		if ((binaryTree->value > value) || (binaryTree->value < value))
 		{
 			if (binaryTree->value > value)
@@ -127,6 +158,7 @@ void printStringFromTree(Tree *&binaryTree, int value)
 {
 	if (foundingOfNumber(*&binaryTree, value))
 	{
+		splayToKey(binaryTree, value);
 		cout << "Искомая строчка " << binaryTree->stringInTree << endl << endl;
 	}
 	else
@@ -147,4 +179,28 @@ void deleteSplayTree(Tree *&binaryTree)
 	}
 	delete binaryTree;
 	binaryTree = nullptr;
+}
+
+void test()
+{
+	Tree *testTree = new Tree{ nullptr, nullptr, 0, " " };
+	for (int i = 1; i < 100; i++)
+	{
+		addString(*&testTree, i, " ");
+	}
+	bool resultOfTest = true;
+	for (int i = 99; i > 0; i--)
+	{
+		splayToKey(*&testTree, i);
+		resultOfTest = resultOfTest && (i == testTree->value);
+	}
+	if (resultOfTest)
+	{
+		cout << "Тест пройден" << endl << endl;
+	}
+	else
+	{
+		cout << "Тест не пройден" << endl << endl;
+	}
+	deleteSplayTree(*&testTree);
 }
