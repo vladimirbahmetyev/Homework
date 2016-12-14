@@ -20,16 +20,17 @@ int hashKey(string word)
 
 bool isWordInList(List *&head, string word)
 {
-	if (!head)
+	List *cursor = head;
+	while (cursor)
 	{
-		return false;
+		if (word == cursor->word)
+		{
+			cursor->value++;
+			return true;
+		}
+		cursor = cursor->next;
 	}
-	if (word == head->word)
-	{
-		head->value++;
-		return true;
-	}	
-	return isWordInList(head->next, word);
+	return false;
 }
 
 void addElementToHashTable(List *&head, string word)

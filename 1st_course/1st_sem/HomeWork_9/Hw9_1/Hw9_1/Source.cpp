@@ -10,7 +10,7 @@ void main()
 	while (!file.eof())
 	{
 		string word = {};
-		getline(file, word, ' ');
+		file >> word;
 		addElementToHashTable(hashTable[hashKey(word)], word);
 	}
 	for (int i = 0; i < 10000; i++)
