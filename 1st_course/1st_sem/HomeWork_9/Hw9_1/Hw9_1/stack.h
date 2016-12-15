@@ -24,3 +24,6 @@ void printList(List *&head);
 
 //Delete all List
 void deleteList(List *&head);
+
+//Count length of list
+int countList(List *&head);

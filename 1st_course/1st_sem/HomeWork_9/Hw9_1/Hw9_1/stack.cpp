@@ -21,7 +21,7 @@ void printList(List *&head)
 	List *printHead = head;
 	while (printHead->next)
 	{
-		cout << head->word << " " << head->value << endl;
+		cout << printHead->word << " " << printHead->value << endl;
 		printHead = printHead->next;
 	}
 }
@@ -34,4 +34,17 @@ void deleteList(List *&head)
 	}
 	delete head;
 	head = nullptr;
+}
+
+int countList(List *&head)
+{
+	if (!head)
+	{
+		return 0;
+	}
+	if (!head->next)
+	{
+		return 1;
+	}
+	return (1 + countList(head->next));
 }
