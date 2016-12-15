@@ -20,5 +20,4 @@ void main()
 	cout << "Коэффициент заполнения: " << fullOfHashTable(hashTable, sizeOfHashTable) << endl;
 	deleteHashTable(hashTable, sizeOfHashTable);
 	test_1();
-	system("pause");
 }
