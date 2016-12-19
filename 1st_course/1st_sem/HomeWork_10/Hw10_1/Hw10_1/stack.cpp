@@ -22,11 +22,11 @@ int pop(List *&head)
 
 void printList(List *head)
 {
-	List printHead = *head;
-	while (printHead.next != nullptr)
+	List *printHead = head;
+	while (printHead)
 	{
-		cout << printHead.value << " ";
-		printHead = *printHead.next;
+		cout << printHead->value + 1 << " ";
+		printHead = printHead->next;
 	}
 	cout << endl << endl;
 }
