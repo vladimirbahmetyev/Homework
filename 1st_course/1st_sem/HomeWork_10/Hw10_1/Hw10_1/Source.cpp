@@ -6,7 +6,7 @@ using namespace std;
 void main()
 {
 	setlocale(LC_ALL, "Russian");
-	ifstream inputFile("inputfile.txt");
+	ifstream inputFile("inputFile.txt");
 	int numberOfCountries = 0;
 	List **mapOfWorld = creatingCoutries(inputFile);
 	printMap(mapOfWorld);

@@ -1,5 +1,8 @@
 #include "stack.h";
 #include <cstdio>
+#include <iostream>
+
+using namespace std;
 
 void push(int value, List *&head)
 {
@@ -22,9 +25,10 @@ void printList(List *head)
 	List printHead = *head;
 	while (printHead.next != nullptr)
 	{
-		printf("%d %s", printHead.value, "\n");
+		cout << printHead.value << " ";
 		printHead = *printHead.next;
 	}
+	cout << endl << endl;
 }
 
 void deleteList(List *&head)
