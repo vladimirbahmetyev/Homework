@@ -6,13 +6,12 @@ using namespace std;
 
 void main()
 {
-	setlocale(LC_ALL, "Russian");
 	ifstream inputFile("inputFile.txt");
-	cout << "¬ведите кол-во стран ";
+	cout << "Enter number of countries ";
 	int countOfCapitals = 0;
 	cin >> countOfCapitals;
 	List **mapOfWorld = creatingCoutries(inputFile, countOfCapitals);
-	printMap(mapOfWorld);
-	deleteMap(mapOfWorld);
+	printMap(mapOfWorld, countOfCapitals);
+	deleteMap(mapOfWorld, countOfCapitals);
 	system("pause");
 }

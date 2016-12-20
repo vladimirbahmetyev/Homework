@@ -33,7 +33,7 @@ void printList(List *head)
 
 void deleteList(List *&head)
 {
-	while (head->next)
+	while (head)
 	{
 		pop(head);
 	}
