@@ -3,11 +3,12 @@
 struct List
 {
 	int value;
+	string string;
 	List *next;
 };
 
 //Add element to stack
-void push(int addToStack, List *&head);
+void push(int addToStack, string inputString, List *&head);
 
 //Delete element from stack
 int pop(List *&head);

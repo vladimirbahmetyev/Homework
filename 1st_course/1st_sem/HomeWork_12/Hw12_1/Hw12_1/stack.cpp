@@ -4,9 +4,9 @@
 
 using namespace std;
 
-void push(int value, List *&head)
+void push(int value,string inputString, List *&head)
 {
-	List * newListElement = new List{ value, head };
+	List * newListElement = new List{ value, inputString, head };
 	head = newListElement;
 	newListElement = nullptr;
 }
@@ -25,10 +25,9 @@ void printList(List *head)
 	List *printHead = head;
 	while (printHead)
 	{
-		cout << printHead->value + 1 << " ";
+		cout << printHead->value << endl;
 		printHead = printHead->next;
 	}
-	cout << endl << endl;
 }
 
 void deleteList(List *&head)
