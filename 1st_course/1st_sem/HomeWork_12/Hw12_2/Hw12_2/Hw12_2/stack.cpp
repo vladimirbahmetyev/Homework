@@ -4,6 +4,12 @@
 
 using namespace std;
 
+struct List
+{
+	int value;
+	List *next;
+};
+
 void push(int value, List *&head)
 {
 	List * newListElement = new List{ value, head };
@@ -35,8 +41,19 @@ void printList(List *&head)
 	List *cursor = head;
 	while (cursor)
 	{
-		cout << cursor->value << " ";
+		cout << cursor->value + 1 << " ";
 		cursor = cursor->next;
 	}
 	cout << endl << endl;
+}
+
+List *transformList(List *&head)
+{
+	List *newList = nullptr;
+	while (head)
+	{
+		push(pop(head), newList);
+	}
+	head = newList;
+	return newList;
 }

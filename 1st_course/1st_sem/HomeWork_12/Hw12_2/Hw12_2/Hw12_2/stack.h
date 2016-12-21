@@ -15,4 +15,8 @@ int pop(List *&head);
 //Delete all List
 void deleteList(List *&head);
 
+//Print List
 void printList(List *&head);
+
+//Invert List
+List *transformList(List *&head);

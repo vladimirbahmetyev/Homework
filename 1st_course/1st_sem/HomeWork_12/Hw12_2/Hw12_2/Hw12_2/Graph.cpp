@@ -1,5 +1,6 @@
 #include "Graph.h"
 #include "stack.h"
+#include <iostream>
 
 using namespace std;
 
@@ -10,6 +11,7 @@ int **createMatrix(int sizeOfMatrix)
 	{
 		matrix[i] = new int[sizeOfMatrix] {0};
 	}
+	return matrix;
 }
 
 int **loadMatrixFromFile(ifstream &inputFile, int sizeOfMatrix)
@@ -25,7 +27,7 @@ int **loadMatrixFromFile(ifstream &inputFile, int sizeOfMatrix)
 	return matrix;
 }
 
-int foundingOfMinDistance(int nameOfRoot,bool isRootUsed[],int **matrix, int sizeOfMatrix )
+int foundingOfMinDistance(int nameOfRoot, bool isRootUsed[],int **matrix, int sizeOfMatrix )
 {
 	int minDistance = INT_MAX;
 	for (int i = 0; i < sizeOfMatrix; i++)
@@ -88,16 +90,66 @@ List *transFormingGraphToList(ifstream &inputFile)
 	int **matrix = loadMatrixFromFile(inputFile, sizeOfMatrix);
 	bool *isRootUsed = new bool[sizeOfMatrix] {false};
 	List *listOfRoots = new List{ 0,nullptr };
+	isRootUsed[0] = true;
 	for (int i = 1; i < sizeOfMatrix; i++)
 	{
 		int theNearestRoot = foundingTheNearestRoot(listOfRoots, isRootUsed, matrix, sizeOfMatrix);
-		if (theNearestRoot != -1)
-		{
-			int minDistance = foundingOfMinDistance(theNearestRoot, isRootUsed, matrix, sizeOfMatrix);
-			int newRoot = foundingRoot(listOfRoots->value, isRootUsed, matrix, sizeOfMatrix, minDistance);
-			push(newRoot, listOfRoots);
-			isRootUsed[newRoot] = true;
-		}
+		int minDistance = foundingOfMinDistance(theNearestRoot, isRootUsed, matrix, sizeOfMatrix);
+		int newRoot = foundingRoot(theNearestRoot, isRootUsed, matrix, sizeOfMatrix, minDistance);
+		push(newRoot, listOfRoots);
+		isRootUsed[newRoot] = true;
 	}
 	return listOfRoots;
+}
+
+bool checkingForTest(List *&testList, List *&keyList)
+{
+	bool flag = true;
+	while (testList->next)
+	{
+		flag = flag && (pop(testList) == pop(keyList));
+	}
+	return flag;
+}
+
+void test1()
+{
+	ifstream inputFile("testByMariia.txt");
+	List *testList = transFormingGraphToList(inputFile);
+	List *keyList = nullptr;
+	push(0, keyList);
+	push(1, keyList);
+	push(3, keyList);
+	push(4, keyList);
+	push(2, keyList);
+	if (checkingForTest(testList, keyList))
+	{
+		cout << "Test 1 completed" << endl;
+	}
+	else
+	{
+		cout << "Test 1 failed" << endl;
+	}
+}
+
+void test2()
+{
+	ifstream inputFile("testByAlexey");
+	List *testList = transFormingGraphToList(inputFile);
+	List *keyList = nullptr;
+	push(0, keyList);
+	push(3, keyList);
+	push(4, keyList);
+	push(5, keyList);
+	push(6, keyList);
+	push(2, keyList);
+	push(1, keyList);
+	if (checkingForTest(testList, keyList))
+	{
+		cout << "Test 2 completed" << endl;
+	}
+	else
+	{
+		cout << "Test 2 failed" << endl;
+	}
 }

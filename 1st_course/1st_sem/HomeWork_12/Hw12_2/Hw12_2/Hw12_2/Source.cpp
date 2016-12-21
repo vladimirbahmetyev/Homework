@@ -8,7 +8,10 @@ void main()
 {
 	ifstream inputFile("inputFile.txt");
 	List *ostTree = transFormingGraphToList(inputFile);
+	inputFile.close();
 	cout << "Min ost tree :" << endl;
+	ostTree = transformList(ostTree);
 	printList(ostTree);
-	system("pause");
+	test1();
+	test2();
 }
