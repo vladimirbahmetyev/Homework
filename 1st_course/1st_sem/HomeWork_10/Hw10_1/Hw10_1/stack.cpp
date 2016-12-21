@@ -8,7 +8,6 @@ void push(int value, List *&head)
 {
 	List * newListElement = new List{ value, head };
 	head = newListElement;
-	newListElement = nullptr;
 }
 
 int pop(List *&head)

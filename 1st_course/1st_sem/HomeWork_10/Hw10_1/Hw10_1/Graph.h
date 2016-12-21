@@ -15,7 +15,7 @@ int **loadDataFromFile(ifstream &inputFile, int numberOfCities);
 int foundingOfMinDistance(int **mapOfWorld, bool isCityÑaptured[], int numberOfCities, int numberOfCity);
 
 //Founding the town with the nearest free town
-int foundingOfTheNearestFreeTown(int **map, List *&ListWithTowns, bool isCityÑaptured[], int numberOfCities);
+int foundingOfTheNearestFreeCity(int **map, List *&ListWithTowns, bool isCityÑaptured[], int numberOfCities);
 
 //Cheking is there any free cities
 bool isAllCitiesCaptured(bool isCityÑaptured[], int numberOfCities);

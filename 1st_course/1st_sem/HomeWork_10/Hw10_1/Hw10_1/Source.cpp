@@ -13,5 +13,4 @@ void main()
 	List **mapOfWorld = creatingCoutries(inputFile, countOfCapitals);
 	printMap(mapOfWorld, countOfCapitals);
 	deleteMap(mapOfWorld, countOfCapitals);
-	system("pause");
 }
