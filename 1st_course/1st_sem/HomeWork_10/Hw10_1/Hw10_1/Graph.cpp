@@ -118,7 +118,7 @@ void printMap(List **mapOfCountries, int numberOfCountries)
 {
 	for (int i = 0; i < numberOfCountries; i++)
 	{
-		cout << "Citys of " << i + 1 << " country ";
+		cout << "Cities of " << i + 1 << " country ";
 		printList(mapOfCountries[i]);
 	}
 }
