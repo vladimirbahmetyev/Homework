@@ -4,13 +4,13 @@
 
 using namespace std;
 
-struct record
+struct Record
 {
 	string name;
 	int number;
 };
 
-void addNewContact(record list[], int * number)
+void addNewContact(Record list[], int * number)
 {
 	*number = *number + 1;
 	cout << "Введите имя контакта: ";
@@ -20,7 +20,7 @@ void addNewContact(record list[], int * number)
 	cout << "Контакт успешно добавлен" << endl << endl;
 }
 
-void printAllContacts(record list[], int *number)
+void printAllContacts(Record list[], int *number)
 {
 	if (*number == 0)
 	{
@@ -37,7 +37,7 @@ void printAllContacts(record list[], int *number)
 	cout << endl;
 }
 
-void searchWithName(record list[], int *number)
+void searchWithName(Record list[], int *number)
 {
 	cout << "Введите имя контакта: ";
 	string name = {};
@@ -53,7 +53,7 @@ void searchWithName(record list[], int *number)
 	cout << "Такого имени нет в списке :(" << endl << endl;
 }
 
-void searchWithNumber(record list[], int * number)
+void searchWithNumber(Record list[], int * number)
 {
 	cout << "Введите телефонный номер: ";
 	int telephoneNumber = 0;
@@ -69,7 +69,7 @@ void searchWithNumber(record list[], int * number)
 	cout << "Такого номера нет в списке :(" << endl << endl;
 }
 
-void saveAllToFile(record list[], int *number)
+void saveAllToFile(Record list[], int *number)
 {
 	ofstream file("list.txt");
 	for (int i = 0; i <= *number; i++)
@@ -80,7 +80,7 @@ void saveAllToFile(record list[], int *number)
 	cout << "Сохранение успешно" << endl << endl;
 }
 
-void loadFromFile(record list[], int *sizeOfList)
+void loadFromFile(Record list[], int *sizeOfList)
 {
 	ifstream file("list.txt");
 	int number = 0;
@@ -102,14 +102,14 @@ void loadFromFile(record list[], int *sizeOfList)
 		}
 		file.close();
 	}
-	*sizeOfList = number - 2;
+	*sizeOfList = number - 1;
 }
 
 void main()
 {
 	setlocale(LC_ALL, "Russian");
 	int command = -1;
-	record list[100] = {};
+	Record list[100] = {};
 	int sizeOfList = 0;
 	loadFromFile(list, &sizeOfList);
 	while (command != 0)
@@ -145,6 +145,7 @@ void main()
 			break;
 		case 5: saveAllToFile(list, &sizeOfList);
 			break;
+		default: cout << "Неккоректный ввод" << endl << endl;
 		}
 	}
 }
