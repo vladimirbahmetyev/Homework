@@ -18,19 +18,18 @@
     <ClCompile Include="Source.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="BoyerMoore.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="stack.cpp">
+    <ClCompile Include="KMP.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BoyerMoore.h">
+    <ClInclude Include="KMP.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="stack.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="inputFile.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
   </ItemGroup>
 </Project>

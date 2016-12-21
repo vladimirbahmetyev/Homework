@@ -110,13 +110,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BoyerMoore.cpp" />
+    <ClCompile Include="KMP.cpp" />
     <ClCompile Include="Source.cpp" />
-    <ClCompile Include="stack.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BoyerMoore.h" />
-    <ClInclude Include="stack.h" />
+    <ClInclude Include="KMP.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="inputFile.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
