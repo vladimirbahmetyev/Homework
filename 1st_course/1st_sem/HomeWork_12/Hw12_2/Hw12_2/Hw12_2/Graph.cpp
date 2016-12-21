@@ -1,13 +1,7 @@
 #include "Graph.h"
+#include "stack.h"
 
 using namespace std;
-
-struct Tree
-{
-	int numberOfRoot;
-	Tree *leftSon;
-	Tree *rightSon;
-};
 
 int **createMatrix(int sizeOfMatrix)
 {
@@ -31,56 +25,79 @@ int **loadMatrixFromFile(ifstream &inputFile, int sizeOfMatrix)
 	return matrix;
 }
 
-bool isAllRootUsed(bool  isRootAlreadyUse[], int countOfRoots)
-{
-	bool flag = true;
-	for (int i = 0; i < countOfRoots; i++)
-	{
-		flag = flag && isRootAlreadyUse[i];
-	}
-	return flag;
-}
-
-int foundingOfMinDistanceInMatrix(Tree *&root, bool isRootAlreadyUse[], int **matrix, int sizeOfMatrix)
+int foundingOfMinDistance(int nameOfRoot,bool isRootUsed[],int **matrix, int sizeOfMatrix )
 {
 	int minDistance = INT_MAX;
 	for (int i = 0; i < sizeOfMatrix; i++)
 	{
-		if (matrix[root->numberOfRoot][i] < minDistance && !isRootAlreadyUse[i])
-		{			
-			minDistance = matrix[root->numberOfRoot][i];
+		if (!isRootUsed[i] && matrix[i][nameOfRoot] < minDistance && matrix[i][nameOfRoot] != 0)
+		{
+			minDistance = matrix[i][nameOfRoot];
 		}
 	}
-	if (minDistance == INT_MAX)
-	{
-		return -1;
-	}
-	else
+	if (minDistance != INT_MAX)
 	{
 		return minDistance;
 	}
-}
-
-int foundingTheNearestTown(bool isRootAlreadyUse[], int **matrix, int sizeOfMatrix, int minDistance, int nameOfRoot)
-{
-	int i = 0;
-	while (minDistance != matrix[nameOfRoot][i] && !isRootAlreadyUse[i])
+	else
 	{
-		i++;
+		return -1;
 	}
-	return i;
 }
 
+int foundingTheNearestRoot(List *&listOfRoots, bool isRootUsed[], int **matrix, int sizeOfMatrix)
+{
+	List *cursor = listOfRoots;
+	int minDistance = INT_MAX;
+	int theNearestRoot = -1;
+	while (cursor)
+	{
+		int checkDistance = foundingOfMinDistance(cursor->value, isRootUsed, matrix, sizeOfMatrix);
+		if (minDistance > checkDistance && checkDistance != -1)
+		{
+			minDistance = checkDistance;
+			theNearestRoot = cursor->value;
+		}
+		cursor = cursor->next;
+	}
+	if (minDistance != INT_MAX)
+	{
+		return theNearestRoot;
+	}
+	else
+	{
+		return -1;
+	}
+}
 
-Tree transFormingGraphToTree(ifstream &inputFile)
+int foundingRoot(int nameOfRoot, bool isRootUsed[], int **matrix,int sizeOfMatrix, int minDistance)
+{
+	for (int i = 0; i < sizeOfMatrix; i++)
+	{
+		if (matrix[i][nameOfRoot] == minDistance && !isRootUsed[i])
+		{
+			return i;
+		}
+	}
+}
+
+List *transFormingGraphToList(ifstream &inputFile)
 {
 	int sizeOfMatrix = 0;
 	inputFile >> sizeOfMatrix;
 	int **matrix = loadMatrixFromFile(inputFile, sizeOfMatrix);
-	bool *isRootAlreadyUse = new bool[sizeOfMatrix] {false};
-	Tree *root = new Tree{ 0, nullptr, nullptr };
-	while (!isAllRootUsed(isRootAlreadyUse, sizeOfMatrix))
+	bool *isRootUsed = new bool[sizeOfMatrix] {false};
+	List *listOfRoots = new List{ 0,nullptr };
+	for (int i = 1; i < sizeOfMatrix; i++)
 	{
-
+		int theNearestRoot = foundingTheNearestRoot(listOfRoots, isRootUsed, matrix, sizeOfMatrix);
+		if (theNearestRoot != -1)
+		{
+			int minDistance = foundingOfMinDistance(theNearestRoot, isRootUsed, matrix, sizeOfMatrix);
+			int newRoot = foundingRoot(listOfRoots->value, isRootUsed, matrix, sizeOfMatrix, minDistance);
+			push(newRoot, listOfRoots);
+			isRootUsed[newRoot] = true;
+		}
 	}
+	return listOfRoots;
 }
