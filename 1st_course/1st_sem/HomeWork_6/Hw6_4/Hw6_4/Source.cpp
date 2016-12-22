@@ -39,12 +39,22 @@ int deepOfList(List *&head)
 	return deep;
 }
 
+List *invertList(List *&head)
+{
+	List *newList = nullptr;
+	while (head)
+	{
+		push(pop(head), newList);
+	}
+	return newList;
+}
+
 List *mergeSortOnName(List *&list)
 {
 	int deep = deepOfList(list);
 	List *firstList = list;
 	List *secondList = nullptr;
-	if (deep > 2)
+	if (deep > 1)
 	{
 		
 		for (int i = 0; i < deep / 2; i++)
@@ -52,7 +62,7 @@ List *mergeSortOnName(List *&list)
 			push(pop(firstList), secondList);
 		}
 		firstList = mergeSortOnName(firstList);
-		firstList = mergeSortOnName(secondList);
+		secondList = mergeSortOnName(secondList);
 	}
 	List *finalList = nullptr;
 	while (firstList && secondList)
@@ -66,15 +76,15 @@ List *mergeSortOnName(List *&list)
 			push(pop(secondList), finalList);
 		}
 	}
-	if (firstList)
+	while (firstList)
 	{
 		push(pop(firstList), finalList);
 	}
-	if (secondList)
+	while (secondList)
 	{
 		push(pop(secondList), finalList);
 	}
-	return finalList;
+	return invertList(finalList);
 }
 
 List *mergeSortOnNumber(List *&list)
@@ -82,15 +92,15 @@ List *mergeSortOnNumber(List *&list)
 	int deep = deepOfList(list);
 	List *firstList = list;
 	List *secondList = nullptr;
-	if (deep > 2)
+	if (deep > 1)
 	{
 
 		for (int i = 0; i < deep / 2; i++)
 		{
 			push(pop(firstList), secondList);
 		}
-		firstList = mergeSortOnName(firstList);
-		firstList = mergeSortOnName(secondList);
+		firstList = mergeSortOnNumber(firstList);
+		secondList = mergeSortOnNumber(secondList);
 	}
 	List *finalList = nullptr;
 	while (firstList && secondList)
@@ -104,24 +114,73 @@ List *mergeSortOnNumber(List *&list)
 			push(pop(secondList), finalList);
 		}
 	}
-	if (firstList)
+	while(firstList)
 	{
 		push(pop(firstList), finalList);
 	}
-	if (secondList)
+	while (secondList)
 	{
 		push(pop(secondList), finalList);
 	}
-	return finalList;
+	return invertList(finalList);
+}
+
+void test1()
+{
+	List *testList = {};
+	loadFromFile(testList);
+	testList = mergeSortOnName(testList);
+	testList = invertList(testList);
+	List *cursor = testList;
+	bool flag = true;
+	while (cursor->next)
+	{
+		flag = flag && (cursor->record.name < cursor->next->record.name);
+		cursor = cursor->next;
+	}
+	if (flag)
+	{
+		cout << "Тест пройден" << endl;
+	}
+	else
+	{
+		cout << "Тест не пройден" << endl;
+	}
+	deleteList(testList);
+}
+
+void test2()
+{
+	List *testList = {};
+	loadFromFile(testList);
+	testList = mergeSortOnNumber(testList);
+	testList = invertList(testList);
+	List *cursor = testList;
+	bool flag = true;
+	while (cursor->next)
+	{
+		flag = flag && (cursor->record.number < cursor->next->record.number);
+		cursor = cursor->next;
+	}
+	if (flag)
+	{
+		cout << "Тест пройден" << endl;
+	}
+	else
+	{
+		cout << "Тест не пройден" << endl;
+	}
+	deleteList(testList);
 }
 
 void main()
 {
 	setlocale(LC_ALL, "Russian");
 	List *telephoneList = nullptr;
-	int numberOfNumbers = 0;
 	loadFromFile(telephoneList);
 	int command = -1;
+	test1();
+	test2();
 	while (command != 0)
 	{
 		cout << "Введите 0 чтобы выйти" << endl;
@@ -130,15 +189,21 @@ void main()
 		cin >> command;
 		switch (command)
 		{
+		case(0):
+		{
+			break;
+		}
 		case(1):
 		{
 			telephoneList = mergeSortOnName(telephoneList);
+			telephoneList = invertList(telephoneList);
 			printList(telephoneList);
 			break;
 		}
 		case(2):
 		{
 			telephoneList = mergeSortOnNumber(telephoneList);
+			telephoneList = invertList(telephoneList);
 			printList(telephoneList);
 			break;
 		}

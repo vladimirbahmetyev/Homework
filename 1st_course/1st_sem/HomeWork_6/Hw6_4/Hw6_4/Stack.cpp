@@ -22,7 +22,7 @@ Record pop(List *&head)
 void printList(List *&head)
 {
 	List *printHead = head;
-	while (head->next != nullptr)
+	while (printHead!= nullptr)
 	{
 		cout << printHead->record.name << " " << printHead->record.number << endl;
 		printHead = printHead->next;
