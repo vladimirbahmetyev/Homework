@@ -12,11 +12,11 @@ struct Record
 
 void addNewContact(Record list[], int * number)
 {
-	*number = *number + 1;
 	cout << "Введите имя контакта: ";
 	cin >> list[*number].name;
 	cout << "Введите номер контакта: ";
 	cin >> list[*number].number;
+	*number = *number + 1;
 	cout << "Контакт успешно добавлен" << endl << endl;
 }
 
@@ -29,7 +29,7 @@ void printAllContacts(Record list[], int *number)
 	}
 	else
 	{
-		for (int i = 0; i <= *number; i++)
+		for (int i = 0; i < *number; i++)
 		{
 			cout << list[i].name << " " << list[i].number << endl;
 		}
@@ -91,6 +91,8 @@ void loadFromFile(Record list[], int *sizeOfList)
 		ofstream file("list.txt");
 		file.close();
 		cout << "Список успешно создан" << endl;
+		*sizeOfList = 0;
+		return;
 	}
 	else
 	{
