@@ -18,12 +18,12 @@
     <ClCompile Include="Source.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Hw6_1\Hw6_1\stack.cpp">
+    <ClCompile Include="stack.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Hw6_1\Hw6_1\stack.h">
+    <ClInclude Include="stack.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
   </ItemGroup>

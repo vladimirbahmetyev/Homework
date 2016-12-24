@@ -1,10 +1,6 @@
 #pragma once
 
-struct List
-{
-	int value;
-	List *next;
-};
+struct List;
 
 //Add element to stack
 void push(int addToStack, List *&head);
@@ -13,7 +9,7 @@ void push(int addToStack, List *&head);
 int pop(List *&head);
 
 //Print all stack
-void printList(List *&head);
+void printList(List *head);
 
 //Delete all List
 void deleteList(List *&head);

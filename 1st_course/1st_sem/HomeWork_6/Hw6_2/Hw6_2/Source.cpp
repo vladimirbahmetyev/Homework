@@ -11,25 +11,24 @@ void main()
 	char example[sizeOfString] = {};
 	printf("¬ведите строку: ");
 	gets_s(example);
-	List * brackets = (0, nullptr);
+	List * brackets = nullptr;
 	bool flag = true;
 	for (int i = 0; i < sizeOfString; i++)
 	{
-		switch (int(example[i]))
+		switch ((example[i]))
 		{
-			case(40): push(1, brackets);
+			case('('): push(1, brackets);
 				break;
-			case(91): push(2, brackets);
+			case('['): push(2, brackets);
 				break;
-			case(123): push(3, brackets);
+			case('{'): push(3, brackets);
 				break;
-			case (41):
+			case (')'):
 			{
 				
 				if (brackets)
 				{
-					flag = flag && (brackets->value == 1);
-					pop(brackets);
+					flag = flag && (pop(brackets) == 1);					
 				}
 				else
 				{
@@ -37,12 +36,11 @@ void main()
 				}
 			}
 				break;
-			case (93):
+			case (']'):
 			{				
 				if (brackets)
 				{
-					flag = flag && (brackets->value == 2);
-					pop(brackets);
+					flag = flag && (pop(brackets) == 2);
 				}
 				else
 				{
@@ -50,13 +48,12 @@ void main()
 				}
 			}
 				break;
-			case (125):
+			case ('}'):
 			{
 				
 				if (brackets)
 				{
-					flag = flag && (brackets->value == 3);
-					pop(brackets);
+					flag = flag && (pop(brackets) == 3);
 				}
 				else
 				{
