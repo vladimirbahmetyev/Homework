@@ -1,5 +1,5 @@
-#include "stack.h"
 #include <iostream>
+#include "stack.h"
 
 using namespace std;
 
@@ -10,68 +10,60 @@ void translationStringToAnswer(List *&numbers, char example[])
 	int number = 0;
 	for (int i = 0; i < sizeOfExample; i++)
 	{
-		switch ((int)example[i])
+		switch (example[i])
 		{
-		case(48): number = number * 10;
+		case('0'): number = number * 10;
 			break;
-		case(49): number = number * 10 + 1;
+		case('1'): number = number * 10 + 1;
 			break;
-		case(50): number = number * 10 + 2;
+		case('2'): number = number * 10 + 2;
 			break;
-		case(51): number = number * 10 + 3;
+		case('3'): number = number * 10 + 3;
 			break;
-		case(52): number = number * 10 + 4;
+		case('4'): number = number * 10 + 4;
 			break;
-		case(53): number = number * 10 + 5;
+		case('5'): number = number * 10 + 5;
 			break;
-		case(54): number = number * 10 + 6;
+		case('6'): number = number * 10 + 6;
 			break;
-		case(55): number = number * 10 + 7;
+		case('7'): number = number * 10 + 7;
 			break;
-		case(56): number = number * 10 + 8;
+		case('8'): number = number * 10 + 8;
 			break;
-		case(57): number = number * 10 + 9;
+		case('9'): number = number * 10 + 9;
 			break;
-		case(32):
-			if (((int)example[i - 1] != 42) && ((int)example[i - 1] != 43) && ((int)example[i - 1] != 45) && ((int)example[i - 1] != 47))
+		case(' '):
+			if ((example[i - 1] != '*') && (example[i - 1] != '+') && (example[i - 1] != '-') && (example[i - 1] != '/'))
 			{
 				push(number, numbers);
 				number = 0;
 			}
 			break;
-		case(42):
+		case('*'):
 		{
-			int numberOne = numbers->value;
-			pop(numbers);
-			int numberTwo = numbers->value;
-			pop(numbers);
+			int numberOne = pop(numbers);
+			int numberTwo = pop(numbers);
 			push(numberOne * numberTwo, numbers);
 		};
 			break;
-		case(43):
+		case('+'):
 		{
-			int numberOne = numbers->value;
-			pop(numbers);
-			int numberTwo = numbers->value;
-			pop(numbers);
+			int numberOne = pop(numbers);
+			int numberTwo = pop(numbers);
 			push(numberOne + numberTwo, numbers);
 		};
 			break;
-		case(45):
+		case('-'):
 		{
-			int numberOne = numbers->value;
-			pop(numbers);
-			int numberTwo = numbers->value;
-			pop(numbers);
+			int numberOne = pop(numbers);
+			int numberTwo = pop(numbers);
 			push(numberTwo - numberOne, numbers);
 		};
 			break;
-		case(47):
+		case('/'):
 		{
-			int numberOne = numbers->value;
-			pop(numbers);
-			int numberTwo = numbers->value;
-			pop(numbers);
+			int numberOne = pop(numbers);
+			int numberTwo = pop(numbers);
 			push(numberTwo / numberOne, numbers);
 		};
 			break;
@@ -85,8 +77,8 @@ void main()
 	char example[sizeOfExample] = {};
 	printf("Введите выражение: ");
 	gets_s(example);
-	List *numbers = (0, nullptr);
+	List *numbers = nullptr;
 	translationStringToAnswer(numbers, example);
-	printf("%s %d", "Ответ: ", numbers->value);
+	printf("%s %d", "Ответ: ", pop(numbers));
 	printf("\n");
 }

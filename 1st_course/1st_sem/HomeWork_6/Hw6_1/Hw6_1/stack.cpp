@@ -1,5 +1,11 @@
-#include "stack.h";
+#include "stack.h"
 #include <cstdio>
+
+struct List
+{
+	int value;
+	List *next;
+};
 
 void push(int value, List *&head)
 {
