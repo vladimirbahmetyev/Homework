@@ -1,6 +1,12 @@
 #include "stack.h";
 #include <cstdio>
 
+struct List
+{
+	int value;
+	List *next;
+};
+
 void push(int value, List *&head)
 {
 	List * newListElement = new List{ value, head };

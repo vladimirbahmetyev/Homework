@@ -1,3 +1,8 @@
+ï»¿#include <cstdlib>
+#include <cstdio>
+#include <iostream>
+#include "stack.h"
+
 #include <cstdlib>
 #include <cstdio>
 #include <iostream>
@@ -11,7 +16,7 @@ int main()
 {
 	setlocale(LC_ALL, "RUSSIAN");
 	char example[sizeOfExample] = {};
-	printf("Ââåäèòå ñòðîêó: ");
+	printf("Ã‚Ã¢Ã¥Ã¤Ã¨Ã²Ã¥ Ã±Ã²Ã°Ã®ÃªÃ³: ");
 	gets_s(example);
 	char outExample[sizeOfExample] = {};
 	int position = 0;
@@ -41,7 +46,7 @@ int main()
 			}
 			pop(stack);
 		}
-		if ((example[i] == '+') || (example[i] == '-') || (example[i] == '/') || (example[i] =='*'))
+		if ((example[i] == '+') || (example[i] == '-') || (example[i] == '/') || (example[i] == '*'))
 		{
 			if (((example[i] == '+') || (example[i] == '-') || ((example[i] == '*') && ((char)stack->value != '-') && ((char)stack->value != '+')) || ((example[i] == '/') && ((char)stack->value != ((char)stack->value != '-')) && ((char)stack->value != '+'))) && ((char)stack->value != '(') && (stack->next))
 			{
@@ -62,7 +67,7 @@ int main()
 		outExample[position] = ' ';
 		position++;
 	}
-	cout << "Ïðèìåð ïîñëå îáðàáîòêè: ";
+	cout << "ÃÃ°Ã¨Ã¬Ã¥Ã° Ã¯Ã®Ã±Ã«Ã¥ Ã®Ã¡Ã°Ã Ã¡Ã®Ã²ÃªÃ¨: ";
 	for (int i = 0; i < strlen(outExample); i++)
 	{
 		cout << outExample[i];
