@@ -17,13 +17,13 @@ void main()
 	{
 		switch ((example[i]))
 		{
-			case('('): push('(', brackets);
+			case '(': push('(', brackets);
 				break;
-			case('['): push('[', brackets);
+			case '[': push('[', brackets);
 				break;
-			case('{'): push('{', brackets);
+			case '{': push('{', brackets);
 				break;
-			case (')'):
+			case ')':
 			{
 				
 				if (brackets)
@@ -36,7 +36,7 @@ void main()
 				}
 			}
 				break;
-			case (']'):
+			case ']':
 			{				
 				if (brackets)
 				{
@@ -48,7 +48,7 @@ void main()
 				}
 			}
 				break;
-			case ('}'):
+			case '}':
 			{
 				
 				if (brackets)
