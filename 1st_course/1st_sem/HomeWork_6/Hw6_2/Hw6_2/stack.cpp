@@ -9,8 +9,7 @@ struct List
 
 void push(int value, List *&head)
 {
-	List * newListElement = new List{ value, head };
-	head = newListElement;
+	head = new List{ value, head };
 }
 
 int pop(List *&head)
@@ -34,6 +33,10 @@ void printList(List *head)
 
 void deleteList(List *&head)
 {
+	if (!head)
+	{
+		return;
+	}
 	while (head->next)
 	{
 		pop(head);

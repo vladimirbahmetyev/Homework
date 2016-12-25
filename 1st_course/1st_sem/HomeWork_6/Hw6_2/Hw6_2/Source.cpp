@@ -17,18 +17,18 @@ void main()
 	{
 		switch ((example[i]))
 		{
-			case('('): push(1, brackets);
+			case('('): push('(', brackets);
 				break;
-			case('['): push(2, brackets);
+			case('['): push('[', brackets);
 				break;
-			case('{'): push(3, brackets);
+			case('{'): push('{', brackets);
 				break;
 			case (')'):
 			{
 				
 				if (brackets)
 				{
-					flag = flag && (pop(brackets) == 1);					
+					flag = flag && (pop(brackets) == '(');					
 				}
 				else
 				{
@@ -40,7 +40,7 @@ void main()
 			{				
 				if (brackets)
 				{
-					flag = flag && (pop(brackets) == 2);
+					flag = flag && (pop(brackets) == '[');
 				}
 				else
 				{
@@ -53,7 +53,7 @@ void main()
 				
 				if (brackets)
 				{
-					flag = flag && (pop(brackets) == 3);
+					flag = flag && (pop(brackets) == '{');
 				}
 				else
 				{
@@ -63,7 +63,7 @@ void main()
 				break;
 		}
 	}
-	if (flag)
+	if (flag && !brackets)
 	{
 		printf("Баланс соблюден\n");
 	}
@@ -71,4 +71,5 @@ void main()
 	{
 		printf("Баланс не соблюден\n");
 	}
+	deleteList(brackets);
 }
