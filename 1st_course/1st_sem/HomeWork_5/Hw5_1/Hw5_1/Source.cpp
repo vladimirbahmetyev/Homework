@@ -1,76 +1,100 @@
-#include <cstdio>
 #include <iostream>
 
 using namespace std;
 
-struct list
+struct List
 {
 	int value;
-	list *next;
+	List *next;
 };
 
-void push(list **head)
+void push(List *&head, int  value)
 {
-		printf("Введите новое значение: ");
-	int addToStack = 0;
-	scanf_s("%d", &addToStack);
-	list * newListElement = new list{ addToStack, *head };
-	*head = newListElement;
-	printf("\n");
-	printf("Элемент успешно добавлен\n\n");
-	newListElement = nullptr;
+	List *newElement = new List{ value, head };
+	head = newElement;      
 }
 
-void pop(list **head)
+int pop(List *&head)
 {
-	if ((**head).next != nullptr)
+	if (!head)
 	{
-		list *newHead = (**head).next;
-		delete[] * head;
-		*head = newHead;
-		printf("Элемент успешно удален\n\n");
+		return 0;
 	}
-	else
-	{
-		printf("Список пуст, удаление невозможно\n\n");
-	}
+	int timeValue = head->value;
+	List *oldElement = head;
+	head = head->next;
+	delete oldElement;
+	return timeValue;
 }
 
-void printList(list *head)
+void printList(List *&head)
 {
-	if ((*head).next == nullptr)
+	List *cursor = head;
+	while (cursor->next)
 	{
-		printf("Список пустой\n\n");
-		return;
+		cout << cursor->value << " ";
+		cursor = cursor->next;
 	}
-	else
-	{
-		printf("Список:\n");
-		list printHead = *head;
-		while (printHead.next != nullptr)
-		{
-			printf("%d %s", printHead.value, "\n");
-			printHead = *printHead.next;
-		}
-	}
-	printf("\n");
+	cout << endl << endl;
 }
 
-void deleteList(list **head)
+void deleteList(List *&head)
 {
-	while ((**head).next != nullptr)
+	while (head)
 	{
 		pop(head);
 	}
-	delete *head;
-	*head = nullptr;
+}
+
+void addElementToSortList(List *&head, int value)
+{
+	if (!head)
+	{
+		push(head, value);
+		return;
+	}
+	List *timeList = nullptr;
+	while (value > head->value && head->next)
+	{
+		push(timeList, pop(head));
+	}
+	push(head, value);
+	while (timeList)
+	{
+		push(head, pop(timeList));
+	}
+}
+
+void deleteElementFromSortList(List *&head, int value)
+{
+	List  *cursor = head;
+	while (cursor->next && cursor->value != value)
+	{
+		cursor = cursor->next;
+	}
+	if (!cursor->next)
+	{
+		cout << "Данного значения нет в списке" << endl << endl;
+		return;
+	}
+	List *timeList = nullptr;
+	while (value > head->value)
+	{
+		push(timeList, pop(head));
+	}
+	pop(head);
+	while (timeList)
+	{
+		push(head, pop(timeList));
+	}
+	cout << "Значение успешно удалено " << endl << endl;
 }
 
 void main()
 {
 	setlocale(LC_ALL, "Russian");
 	int command = -1;
-	list * head = new list{ 0, nullptr };
+	List * head = new List{0, nullptr};
 	while (command != 0)
 	{
 		printf("Нажмите 0 чтобы выйти\n");
@@ -83,13 +107,29 @@ void main()
 		{
 		case 0:;
 			break;
-		case 1: push(&head);			
+		case 1: 
+		{
+			cout << "Введите значение ";
+			int value = 0;
+			cin >> value;
+			cout << endl << endl;
+			addElementToSortList(head, value);
+			cout << "Значение успешно добавлено" << endl<< endl;
+		};
 			break;	
-		case 2: pop(&head);
+		case 2: 
+		{
+			cout << "Введите значение которое нужно удалить ";
+			int value = 0;
+			cin >> value;
+			cout << endl;
+			deleteElementFromSortList(head, value);
+		};
 			break;
 		case 3: printList(head);
 			break;
+		default: cout << "Неккоректный ввод" << endl << endl;
 		}
 	}
-	deleteList(&head);
+	deleteList(head);
 }
