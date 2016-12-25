@@ -163,7 +163,7 @@ void deleteElementFromTree(Tree *&binaryTree, int value)
 	Tree *&newElement = binaryTree->leftSon;
 	while (newElement->rightSon)
 	{
-		newElement = newElement->rightSon;
+		*&newElement = newElement->rightSon;
 	}
 	binaryTree->value = newElement->value;
 	deleteElementFromTree(newElement, newElement->value);
