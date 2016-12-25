@@ -60,7 +60,7 @@ void main()
 					flag = false;
 				}
 			}
-				break;
+			break;
 		}
 	}
 	if (flag && !brackets)
