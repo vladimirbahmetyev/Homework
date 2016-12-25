@@ -1,5 +1,13 @@
 #include "splayTree.h"
 
+struct Tree
+{
+	Tree *leftSon;
+	Tree *rightSon;
+	int value;
+	string stringInTree;
+};
+
 void zig(Tree  *&binaryTree)
 {
 	Tree *oldElement = binaryTree->leftSon;

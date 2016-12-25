@@ -5,13 +5,7 @@
 
 using namespace std;
 
-struct Tree
-{
-	Tree *leftSon;
-	Tree *rightSon;
-	int value;
-	string stringInTree;
-};
+struct Tree;
 
 //Turn tree to left
 void zig(Tree  *&binaryTree);
