@@ -99,5 +99,6 @@ int main()
 		default: cout << "Неккоректный ввод" << endl;
 		}
 	}
+	deleteTree(root);
 	return 0;
 }

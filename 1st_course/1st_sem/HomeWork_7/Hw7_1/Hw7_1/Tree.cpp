@@ -168,3 +168,15 @@ void deleteElementFromTree(Tree *&binaryTree, int value)
 	binaryTree->value = newElement->value;
 	deleteElementFromTree(newElement, newElement->value);
 }
+
+void deleteTree(Tree *&binaryTree)
+{
+	if (!binaryTree)
+	{
+		return;
+	}
+	deleteTree(binaryTree->leftSon);
+	deleteTree(binaryTree->rightSon);
+	delete binaryTree;
+	binaryTree = nullptr;
+}
