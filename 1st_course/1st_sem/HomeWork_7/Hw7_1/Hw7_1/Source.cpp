@@ -1,168 +1,14 @@
 #include <cstdio>
-#include <cstdlib>
 #include <iostream>
+#include "Tree.h"
 
 using namespace std;
-
-struct tree
-{
-	tree *leftSon;
-	tree *rightSon;
-	int value;
-};
-
-void addNumber(tree *&binaryTree, int value)
-{
-	if (value == binaryTree->value)
-	{
-		cout << "Данный элемент уже есть в дереве" << endl;
-		return;
-	}
-	else
-	{
-		if (value < binaryTree->value)
-		{
-			if (!binaryTree->leftSon)
-			{
-				binaryTree->leftSon = new tree{ nullptr, nullptr, value };
-			}
-			else
-			{
-				addNumber(binaryTree->leftSon, value);
-			}
-		}
-		else
-		{
-			if (!binaryTree->rightSon)
-			{
-				binaryTree->rightSon = new tree{ nullptr, nullptr, value };
-			}
-			else
-			{
-				addNumber(binaryTree->rightSon, value);
-			}
-		}
-	}
-}
-
-bool foundingOfNumber(tree *&binaryTree, int value)
-{
-	if (binaryTree->value != value)
-	{
-		if (binaryTree->value > value)
-		{
-			if (binaryTree->leftSon)
-			{
-				return foundingOfNumber(binaryTree->leftSon, value);
-			}
-			else
-			{
-				cout << "Такого элемента нет в дереве" << endl << endl;
-				return false;
-			}
-		}
-		if (binaryTree->value < value)
-		{
-			if (binaryTree->rightSon)
-			{
-				return foundingOfNumber(binaryTree->rightSon, value);
-			}
-			else
-			{
-				cout << "Такого элемента нет в дереве" << endl << endl;
-				return false;
-			}
-		}
-	}
-	else
-	{
-		cout << "Данный элемент есть в дереве" << endl << endl;
-		return true;
-	}
-}
-
-void printBinaryTreeIncrease(tree *&binaryTree)
-{
-	if (binaryTree->leftSon)
-	{
-		printBinaryTreeIncrease(binaryTree->leftSon);
-	}
-	cout << binaryTree->value << " ";
-	if (binaryTree->rightSon)
-	{
-		printBinaryTreeIncrease(binaryTree->rightSon);
-	}
-}
-
-void printBinaryTreeDecrease(tree *&binaryTree)
-{
-	if (binaryTree->rightSon)
-	{
-		printBinaryTreeDecrease(binaryTree->rightSon);
-	}
-	cout << binaryTree->value << " ";
-	if (binaryTree->leftSon)
-	{
-		printBinaryTreeDecrease(binaryTree->leftSon);
-	}
-}
-
-void deleteElementFromTree(tree *&binaryTree, int value)
-{
-	if ((binaryTree->value > value) || (binaryTree->value < value))
-	{
-		if (binaryTree->value > value)
-		{
-			deleteElementFromTree(binaryTree->leftSon, value);
-			return;
-		}
-		else
-		{
-			deleteElementFromTree(binaryTree->rightSon, value);
-			return;
-		}
-	}
-	if (!(binaryTree->leftSon || binaryTree->rightSon))
-	{
-		delete binaryTree;
-		binaryTree = nullptr;
-		return;
-	}
-	if ((!binaryTree->leftSon) && binaryTree->rightSon)
-	{
-		tree *oldElement = binaryTree;
-		binaryTree = binaryTree->rightSon;
-		delete oldElement;
-		oldElement = nullptr;
-		return;
-	}
-	if (binaryTree->leftSon && (!binaryTree->rightSon))
-	{
-		tree *oldElement = binaryTree;
-		binaryTree = binaryTree->leftSon;
-		delete oldElement;
-		oldElement = nullptr;
-		return;
-	}
-	tree *&newElement = binaryTree->leftSon;
-	while (newElement->rightSon)
-	{
-		newElement = newElement->rightSon;
-	}
-	binaryTree->value = newElement->value;
-	deleteElementFromTree(newElement, newElement->value);
-}
 
 int main()
 {
 	setlocale(LC_ALL, "Russian");
 	int command = -1;
-	cout << "Дерево пустое, введите элемент, который будет корнем дерева ";
-	int numberInRoot = 0;
-	cin >> numberInRoot;
-	cout << endl;
-	tree *root = new tree{ nullptr, nullptr, numberInRoot };
-	cout << "Дерево успешно создано" << endl << endl;
+	Tree *root = nullptr;
 	while (command != 0)
 	{
 		cout << "Введите 0 чтобы выйти" << endl;
@@ -174,16 +20,24 @@ int main()
 		cin >> command;
 		switch (command)
 		{
-		case (1):
+		case 1:
 		{
 			cout << "Введите число, которое нужно добавить в дерево ";
 			int number = 0;
 			cin >> number;
 			cout << endl;
-			addNumber(root, number);
+			if (foundingOfNumber(root, number))
+			{
+				cout << "Данный элемент уже есть в дереве " << endl;
+			}
+			else
+			{
+				addNumber(root, number);
+				cout << "Число успешно добавлено " << endl;
+			}
 			break;
 		}
-		case(2):
+		case 2:
 		{
 			cout << "Введите элемент который нужно удалить: ";
 			int number = 0;
@@ -192,30 +46,57 @@ int main()
 			if (foundingOfNumber(root, number))
 			{
 				deleteElementFromTree(root, number);
+				cout << "Число успешно удалено " << endl;
+			}
+			else
+			{
+				cout << "Данного числа нет в дереве " << endl;
 			}
 			break;
 		}
-		case(3):
+		case 3:
 		{
 			cout << "Введите элемент для поиска ";
 			int number = 0;
 			cin >> number;
 			cout << endl;
-			foundingOfNumber(root, number);
+			if (foundingOfNumber(root, number))
+			{
+				cout << "Данный элемент есть в дереве" << endl;
+			}
+			else
+			{
+				cout << "Данного элемента нет в дереве " << endl;
+			}
 			break;
 		}
-		case(4):
+		case 4:
 		{
-			printBinaryTreeIncrease(root);
-			cout << endl;
+			if (root)
+			{
+				printBinaryTreeIncrease(root);
+				cout << endl;
+			}
+			else
+			{
+				cout << "Дерево пустое" << endl;
+			}
 			break;
 		}
-		case(5):
+		case 5:
 		{
-			printBinaryTreeDecrease(root);
-			cout << endl;
+			if (root)
+			{
+				printBinaryTreeDecrease(root);
+				cout << endl;
+			}
+			else
+			{
+				cout << "Дерево пустое" << endl;
+			}
 			break;
 		}
+		default: cout << "Неккоректный ввод" << endl;
 		}
 	}
 	return 0;
