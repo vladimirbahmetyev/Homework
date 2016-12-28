@@ -27,16 +27,16 @@ void loadFromFile(List *&list)
 	}
 }
 
-int deepOfList(List *&head)
+int sizeOfList(List *&head)
 {
-	int deep = 0;
+	int size = 0;
 	List *cursor = head;
 	while (cursor)
 	{
 		cursor = cursor->next;
-		deep++;
+		size++;
 	}
-	return deep;
+	return size;
 }
 
 List *invertList(List *&head)
@@ -49,72 +49,55 @@ List *invertList(List *&head)
 	return newList;
 }
 
-List *mergeSortOnName(List *&list)
+List *mergeSort(List *&list, int typeOfSort)
 {
-	int deep = deepOfList(list);
+	int size = sizeOfList(list);
 	List *firstList = list;
 	List *secondList = nullptr;
-	if (deep > 1)
+	if (size > 1)
 	{
 		
-		for (int i = 0; i < deep / 2; i++)
+		for (int i = 0; i < size / 2; i++)
 		{
 			push(pop(firstList), secondList);
 		}
-		firstList = mergeSortOnName(firstList);
-		secondList = mergeSortOnName(secondList);
+		firstList = mergeSort(firstList, typeOfSort);
+		secondList = mergeSort(secondList, typeOfSort);
 	}
 	List *finalList = nullptr;
 	while (firstList && secondList)
 	{
-		if (firstList->record.name > secondList->record.name)
+		switch (typeOfSort)
 		{
-			push(pop(firstList), finalList);
+		case 1:
+		{
+			if (firstList->record.name > secondList->record.name)
+			{
+				push(pop(firstList), finalList);
+			}
+			else
+			{
+				push(pop(secondList), finalList);
+			}
+			break;
 		}
-		else
+		case 2:
 		{
-			push(pop(secondList), finalList);
+			if (firstList->record.number > secondList->record.number)
+			{
+				push(pop(firstList), finalList);
+			}
+			else
+			{
+				push(pop(secondList), finalList);
+			}
+		
+		}
+		break;
+		default: return nullptr;
 		}
 	}
 	while (firstList)
-	{
-		push(pop(firstList), finalList);
-	}
-	while (secondList)
-	{
-		push(pop(secondList), finalList);
-	}
-	return invertList(finalList);
-}
-
-List *mergeSortOnNumber(List *&list)
-{
-	int deep = deepOfList(list);
-	List *firstList = list;
-	List *secondList = nullptr;
-	if (deep > 1)
-	{
-
-		for (int i = 0; i < deep / 2; i++)
-		{
-			push(pop(firstList), secondList);
-		}
-		firstList = mergeSortOnNumber(firstList);
-		secondList = mergeSortOnNumber(secondList);
-	}
-	List *finalList = nullptr;
-	while (firstList && secondList)
-	{
-		if (firstList->record.number > secondList->record.number)
-		{
-			push(pop(firstList), finalList);
-		}
-		else
-		{
-			push(pop(secondList), finalList);
-		}
-	}
-	while(firstList)
 	{
 		push(pop(firstList), finalList);
 	}
@@ -129,7 +112,7 @@ void test1()
 {
 	List *testList = {};
 	loadFromFile(testList);
-	testList = mergeSortOnName(testList);
+	testList = mergeSort(testList, 1);
 	testList = invertList(testList);
 	List *cursor = testList;
 	bool flag = true;
@@ -153,7 +136,7 @@ void test2()
 {
 	List *testList = {};
 	loadFromFile(testList);
-	testList = mergeSortOnNumber(testList);
+	testList = mergeSort(testList, 2);
 	testList = invertList(testList);
 	List *cursor = testList;
 	bool flag = true;
@@ -193,16 +176,16 @@ void main()
 		{
 			break;
 		}
-		case(1):
+		case 1:
 		{
-			telephoneList = mergeSortOnName(telephoneList);
+			telephoneList = mergeSort(telephoneList, command);
 			telephoneList = invertList(telephoneList);
 			printList(telephoneList);
 			break;
 		}
-		case(2):
+		case 2:
 		{
-			telephoneList = mergeSortOnNumber(telephoneList);
+			telephoneList = mergeSort(telephoneList, command);
 			telephoneList = invertList(telephoneList);
 			printList(telephoneList);
 			break;
@@ -211,5 +194,4 @@ void main()
 	 	}
 	}
 	deleteList(telephoneList);
-	system("pasue");
 }

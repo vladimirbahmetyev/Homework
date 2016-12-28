@@ -19,7 +19,7 @@ Record pop(List *&head)
 	return oldRecord;
 }
 
-void printList(List *&head)
+void printList(List *head)
 {
 	List *printHead = head;
 	while (printHead!= nullptr)

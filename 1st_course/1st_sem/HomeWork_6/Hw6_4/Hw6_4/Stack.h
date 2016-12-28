@@ -20,6 +20,6 @@ void push(Record newRecord, List *&head);
 
 Record pop(List *&head);
 
-void printList(List *&head);
+void printList(List *head);
 
 void deleteList(List *&head);
