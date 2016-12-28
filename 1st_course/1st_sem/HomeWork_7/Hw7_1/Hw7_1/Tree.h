@@ -19,3 +19,12 @@ void deleteElementFromTree(Tree *&binaryTree, int value);
 
 //Delete Tree
 void deleteTree(Tree *&binaryTree);
+
+//test
+bool test1();
+
+//test
+bool test2();
+
+//test
+bool test3();

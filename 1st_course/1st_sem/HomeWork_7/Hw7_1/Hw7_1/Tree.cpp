@@ -160,13 +160,13 @@ void deleteElementFromTree(Tree *&binaryTree, int value)
 		oldElement = nullptr;
 		return;
 	}
-	Tree *&newElement = binaryTree->leftSon;
+	Tree *newElement = binaryTree->leftSon;
 	while (newElement->rightSon)
 	{
-		*&newElement = newElement->rightSon;
+		newElement = newElement->rightSon;
 	}
 	binaryTree->value = newElement->value;
-	deleteElementFromTree(newElement, newElement->value);
+	deleteElementFromTree(binaryTree->leftSon, newElement->value);
 }
 
 void deleteTree(Tree *&binaryTree)
@@ -179,4 +179,51 @@ void deleteTree(Tree *&binaryTree)
 	deleteTree(binaryTree->rightSon);
 	delete binaryTree;
 	binaryTree = nullptr;
+}
+
+bool isTreeTrue(Tree *root)
+{
+	if (!root)
+	{
+		return true;
+	}
+	bool flag = true;
+	if (root->leftSon)
+	{
+		flag = root->value > root->leftSon->value;
+	}
+	if (root->rightSon)
+	{
+		flag = root->value < root->rightSon->value;
+	}
+	return (flag && isTreeTrue(root->leftSon) && isTreeTrue(root->rightSon));
+}
+
+bool test1()
+{
+	Tree *root = nullptr;
+	addNumber(root, 4);
+	addNumber(root, 2);
+	addNumber(root, 1);
+	addNumber(root, 3);
+	addNumber(root, 6);
+	addNumber(root, 5);
+	addNumber(root, 7);
+	deleteElementFromTree(root, 4);
+	return (isTreeTrue(root));
+}
+
+bool test2()
+{
+	Tree *root = nullptr;
+	addNumber(root, 4);
+	addNumber(root, 4);
+	addNumber(root, 4);
+	return isTreeTrue(root);
+}
+
+bool test3()
+{
+	Tree *root = nullptr;
+	return isTreeTrue(root);
 }

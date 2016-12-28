@@ -7,6 +7,11 @@ using namespace std;
 int main()
 {
 	setlocale(LC_ALL, "Russian");
+	if (!test1() && test2() && test3())
+	{
+		cout << "Îøèáêà" << endl;
+		return 0;
+	}
 	int command = -1;
 	Tree *root = nullptr;
 	while (command != 0)
