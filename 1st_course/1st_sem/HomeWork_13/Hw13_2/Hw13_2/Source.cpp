@@ -23,6 +23,16 @@ int **createTable()
 	return table;
 }
 
+void deleteTable(int **table)
+{
+	for (int i = 0; i < 3; i++)
+	{
+		delete table[i];
+	}
+	delete table;
+	table = nullptr;
+}
+
 void main()
 {
 	ifstream inputFile("test.txt");
@@ -32,7 +42,7 @@ void main()
 	while (!inputFile.eof())
 	{
 		inputFile >> symbol;
-		if (state == 2 && symbol !='*')
+		if (state == 2 && symbol != '*')
 		{
 			cout << symbol;
 		}
@@ -66,4 +76,5 @@ void main()
 		}
 	}
 	inputFile.close();
+	deleteTable(table);
 }
