@@ -13,5 +13,4 @@ void main()
 	cout << endl << endl;
 	cout << "Result of operations is " << result << endl;
 	deleteTree(root);
-	system("pause");
 }

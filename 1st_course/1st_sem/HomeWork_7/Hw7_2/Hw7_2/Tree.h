@@ -1,18 +1,15 @@
-#pragma once;
-#include <iostream>
-
-using namespace std;
+#pragma once
 
 struct Tree;
 
-bool isTreeFinish(Tree *binaryTree);
-
+//Print tree
 void printTree(Tree *binaryTree);
 
-void pushToTree(Tree *&binaryTree, char symbol);
-
+//Load tree from File
 void loadFromFileToTree(Tree *&binaryTree);
 
+//Count result of tree
 int resultOfTree(Tree *binaryTree);
 
+//Delete Tree
 void deleteTree(Tree *&binaryTree);

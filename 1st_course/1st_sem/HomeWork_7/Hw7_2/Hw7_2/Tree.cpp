@@ -1,5 +1,8 @@
 #include "Tree.h"
 #include <fstream>
+#include <iostream>
+
+using namespace std;
 
 struct Tree
 {
@@ -33,12 +36,14 @@ void printTree(Tree *binaryTree)
 	}
 	if (binaryTree->leftSon)
 	{
+		cout << '(';
 		printTree(binaryTree->leftSon);
 	}
 	cout << binaryTree->value << ' ';
 	if (binaryTree->rightSon)
-	{
+	{		
 		printTree(binaryTree->rightSon);
+		cout << ')';
 	}
 }
 
@@ -140,6 +145,7 @@ int resultOfTree(Tree *binaryTree)
 	{
 		return (resultOfTree(binaryTree->leftSon) + resultOfTree(binaryTree->rightSon));
 	}
+	return 0;
 }
 
 void deleteTree(Tree *&binaryTree)
