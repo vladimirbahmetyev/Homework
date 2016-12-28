@@ -1,11 +1,16 @@
 #include "splayTree.h"
 
+struct Array
+{
+	string key;
+	string value;
+};
+
 struct Tree
 {
 	Tree *leftSon;
 	Tree *rightSon;
-	int value;
-	string stringInTree;
+	Array chunk;
 };
 
 void zig(Tree  *&binaryTree)
@@ -30,9 +35,13 @@ void zag(Tree  *&binaryTree)
 	binaryTree = oldElement;
 }
 
-bool foundingOfNumber(Tree *&binaryTree, int value)
+bool foundingOfNumber(Tree *&binaryTree, Array *value)
 {
-	if (binaryTree->value == value)
+	if (!binaryTree)
+	{
+		return false;
+	}
+	if (binaryTree->chunk.key == value->key)
 	{
 		return true;
 	}
@@ -49,9 +58,9 @@ bool foundingOfNumber(Tree *&binaryTree, int value)
 	return leftBranch || rightBranch;
 }
 
-void splayToKey(Tree *&binaryTree, int value)
+void splayToKey(Tree *&binaryTree, Array *value)
 {
-	if (binaryTree->value == value)
+	if (binaryTree->chunk.key == value->key)
 	{
 		return;
 	}
@@ -63,7 +72,7 @@ void splayToKey(Tree *&binaryTree, int value)
 			zig(binaryTree);
 		}
 	}
-	if(binaryTree->rightSon)
+	if (binaryTree->rightSon)
 	{
 		if (foundingOfNumber(binaryTree->rightSon, value))
 		{
@@ -73,39 +82,41 @@ void splayToKey(Tree *&binaryTree, int value)
 	}
 }
 
-void addString(Tree *&binaryTree, int value, string inputString)
+void addString(Tree *&binaryTree, Array *value)
 {
-	if (binaryTree->value == value)
+	if (!binaryTree)
 	{
-		cout << "Значение данного ключа будет перезаписано" << endl << endl;
-		binaryTree->stringInTree = inputString;
+		binaryTree = new Tree{ nullptr, nullptr, *value };
+		return;
+	}
+	if (binaryTree->chunk.key == value->key)
+	{
+		binaryTree->chunk = *value;
 		return;
 	}
 	else
 	{
-		if (value < binaryTree->value)
+		if ( value->key < binaryTree->chunk.key)
 		{
 			if (!binaryTree->leftSon)
 			{
-				binaryTree->leftSon = new Tree{ nullptr, nullptr, value, inputString };
-				cout << "Данная строка успешно добавлена" << endl << endl;
+				binaryTree->leftSon = new Tree{ nullptr, nullptr, *value};
 			}
 			else
 			{
 
-				addString(binaryTree->leftSon, value, inputString);
+				addString(binaryTree->leftSon, value);
 			}
 		}
 		else
 		{
 			if (!binaryTree->rightSon)
 			{
-				binaryTree->rightSon = new Tree{ nullptr, nullptr, value , inputString };
-				cout << "Данная строка успешно добавлена" << endl << endl;
+				binaryTree->rightSon = new Tree{ nullptr, nullptr, *value };
 			}
 			else
 			{
-				addString(binaryTree->rightSon, value, inputString);
+				addString(binaryTree->rightSon, value);
 			}
 		}
 	}
@@ -114,6 +125,10 @@ void addString(Tree *&binaryTree, int value, string inputString)
 
 void deleteStringFromTree(Tree *&binaryTree, int value)
 {
+	if (!binaryTree)
+	{
+		return;
+	}
 	if (foundingOfNumber(binaryTree, value))
 	{
 		splayToKey(binaryTree, value);
@@ -162,16 +177,15 @@ void deleteStringFromTree(Tree *&binaryTree, int value)
 	}
 }
 
-void printStringFromTree(Tree *&binaryTree, int value)
+void printStringFromTree(Tree *&binaryTree, Array *value)
 {
+	if (!binaryTree)
+	{
+		return;
+	}
 	if (foundingOfNumber(*&binaryTree, value))
 	{
 		splayToKey(binaryTree, value);
-		cout << "Искомая строчка " << binaryTree->stringInTree << endl << endl;
-	}
-	else
-	{
-		cout << "Данного ключа нет в дереве" << endl << endl;
 	}
 }
 
@@ -199,8 +213,8 @@ void test()
 	bool resultOfTest = true;
 	for (int i = 99; i > 0; i--)
 	{
-		splayToKey(*&testTree, i);
-		resultOfTest = resultOfTest && (i == testTree->value);
+		splayToKey(*&testTree, (char)i);
+		resultOfTest = resultOfTest && (i == testTree->chunk);
 	}
 	if (resultOfTest)
 	{

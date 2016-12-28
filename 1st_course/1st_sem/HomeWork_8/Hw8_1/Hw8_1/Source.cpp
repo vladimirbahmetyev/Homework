@@ -5,16 +5,8 @@
 void main()
 {
 	setlocale(LC_ALL, "Russian");
+	Tree *root = nullptr;
 	int command = -1;
-	cout << "Дерево пустое, введите элемент, который будет корнем дерева ";
-	int numberInRoot = 0;
-	cin >> numberInRoot;
-	cout << "Введите первую строку вашего дерева ";
-	string firstString = {};
-	cin >> firstString;
-	cout << endl;
-	Tree *root = new Tree{ nullptr, nullptr, numberInRoot,firstString };
-	cout << "Дерево успешно создано" << endl << endl;
 	while (command != 0)
 	{
 		cout << "Введите 0 чтобы выйти" << endl;
@@ -26,8 +18,9 @@ void main()
 		cout << endl;
 		switch (command)
 		{
-		case (1):
+		case 1:
 		{
+			Array *newElement = new Array{"",""};
 			cout << "Введите новый ключ ";
 			int number = 0;
 			cin >> number;
@@ -37,9 +30,10 @@ void main()
 			cin >> inputString;
 			cout << endl;
 			addString(root, number, inputString);
+			cout << "Данная строчка успешно добавлена " << endl << endl;
 			break;
 		}
-		case(2):
+		case 2:
 		{
 			cout << "Введите ключ строки, которую нужно удалить ";
 			int number = 0;
@@ -49,7 +43,7 @@ void main()
 			cout << "Строка успешно удалена" << endl << endl;
 			break;
 		}
-		case(3):
+		case 3:
 		{
 			cout << "Введите ключ для поиска ";
 			int number = 0;
@@ -65,7 +59,7 @@ void main()
 			}
 			break;
 		}
-		case(4):
+		case 4:
 		{
 			cout << "Введите ключ строки, которую нужно распечатать ";
 			int number = 0;
@@ -74,6 +68,7 @@ void main()
 			printStringFromTree(root, number);
 			break;
 		}
+		default: cout << "Неккоректный ввод " << endl;
 		}
 	}
 	deleteSplayTree(root);

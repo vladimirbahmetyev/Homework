@@ -6,27 +6,19 @@
 using namespace std;
 
 struct Tree;
-
-//Turn tree to left
-void zig(Tree  *&binaryTree);
-
-//Turn tree to right
-void zag(Tree  *&binaryTree);
+struct Array;
 
 //Check is value in tree
-bool foundingOfNumber(Tree *&binaryTree, int value);
-
-//Splaying root to key
-void splayToKey(Tree *&binaryTree, int value);
+bool foundingOfNumber(Tree *&binaryTree, Array *value);
 
 //Add string to tree
-void addString(Tree *&binaryTree, int value, string inputString);
+void addString(Tree *&binaryTree, Array *value);
 
 //Delete string from tree
 void deleteStringFromTree(Tree *&binaryTree, int value);
 
 //Print string with key
-void printStringFromTree(Tree *&binaryTree, int value);
+void printStringFromTree(Tree *&binaryTree, Array *value);
 
 //Delete Splay Tree
 void deleteSplayTree(Tree *&binaryTree);
