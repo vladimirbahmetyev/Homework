@@ -9,13 +9,15 @@ struct List
 
 void push(int value, List *&head)
 {
-	List * newListElement = new List{ value, head };
-	head = newListElement;
-	newListElement = nullptr;
+	head = new List{ value, head };
 }
 
 int pop(List *&head)
 {
+	if (!head)
+	{
+		return 0;
+	}
 	int number = head->value;
 	List *oldHead = head;
 	head = head->next;

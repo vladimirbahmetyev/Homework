@@ -3,27 +3,29 @@
 #include <iostream>
 #include "stack.h"
 
-#include <cstdlib>
-#include <cstdio>
-#include <iostream>
-#include "stack.h"
-
 int const sizeOfExample = 256;
 
 using namespace std;
+
+int headOfStack(List *head)
+{
+	int timeHead = pop(head);
+	push(timeHead, head);
+	return timeHead;
+}
 
 int main()
 {
 	setlocale(LC_ALL, "RUSSIAN");
 	char example[sizeOfExample] = {};
-	printf("Ââåäèòå ñòðîêó: ");
+	printf("Введите пример: ");
 	gets_s(example);
 	char outExample[sizeOfExample] = {};
 	int position = 0;
-	List *stack = new List{};
+	List *stack = nullptr;
 	for (int i = 0; i < strlen(example); i++)
 	{
-		if ((example[i] >= (int)'0') && (example[i] <= (int)'9'))
+		if ((example[i] >= '0') && (example[i] <= '9'))
 		{
 			outExample[position] = example[i];
 			position++;
@@ -32,13 +34,13 @@ int main()
 		}
 		if (example[i] == '(')
 		{
-			push((int)'(', stack);
+			push('(', stack);
 		}
 		if (example[i] == ')')
 		{
-			while (stack->value != (int)'(')
+			while (headOfStack(stack) != '(')
 			{
-				outExample[position] = ((char)stack->value);
+				outExample[position] = (headOfStack(stack));
 				position++;
 				outExample[position] = ' ';
 				position++;
@@ -48,26 +50,26 @@ int main()
 		}
 		if ((example[i] == '+') || (example[i] == '-') || (example[i] == '/') || (example[i] == '*'))
 		{
-			if (((example[i] == '+') || (example[i] == '-') || ((example[i] == '*') && ((char)stack->value != '-') && ((char)stack->value != '+')) || ((example[i] == '/') && ((char)stack->value != ((char)stack->value != '-')) && ((char)stack->value != '+'))) && ((char)stack->value != '(') && (stack->next))
+			if (((example[i] == '+') || (example[i] == '-') || ((example[i] == '*') && (headOfStack(stack) != '-') && (headOfStack(stack) != '+')) || ((example[i] == '/') && (headOfStack(stack) != (headOfStack(stack) != '-')) && (headOfStack(stack) != '+'))) && (headOfStack(stack) != '(') && (stack))
 			{
-				outExample[position] = (char)stack->value;
+				outExample[position] = headOfStack(stack);
 				pop(stack);
 				position++;
 				outExample[position] = ' ';
 				position++;
 			}
-			push((int)example[i], stack);
+			push(example[i], stack);
 		}
 	}
-	while (stack->next)
+	while (stack)
 	{
-		outExample[position] = (char)stack->value;
+		outExample[position] = headOfStack(stack);
 		pop(stack);
 		position++;
 		outExample[position] = ' ';
 		position++;
 	}
-	cout << "Ïðèìåð ïîñëå îáðàáîòêè: ";
+	cout << "Пример после сортировочной станции: ";
 	for (int i = 0; i < strlen(outExample); i++)
 	{
 		cout << outExample[i];
@@ -75,5 +77,6 @@ int main()
 	cout << endl;
 	delete stack;
 	stack = nullptr;
+	system("pause");
 	return 0;
 }
