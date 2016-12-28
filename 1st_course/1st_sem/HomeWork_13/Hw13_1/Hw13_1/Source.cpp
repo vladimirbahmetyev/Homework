@@ -3,19 +3,15 @@
 
 using namespace std;
 
-bool syntaxAnalyzer(string inputString)
+bool syntaxAnalyzer(const string &inputString)
 {
 	int state = 0;
-	if (inputString[inputString.length() - 1] == '.' || inputString[inputString.length() - 1] == 'E')
-	{
-		return false;
-	}
 	for (int i = 0; i < inputString.length(); i++)
 	{
 		char symbol = inputString[i];
 		switch (state)
 		{
-		case(0):
+		case 0:
 		{
 			if (symbol >= '0' && symbol <= '9')
 			{
@@ -27,7 +23,7 @@ bool syntaxAnalyzer(string inputString)
 				return false;
 			}
 		}
-		case(1):
+		case 1:
 		{
 			if (symbol >= '0' && symbol <= '9')
 			{
@@ -38,26 +34,45 @@ bool syntaxAnalyzer(string inputString)
 				state = 2;
 				break;
 			}
+			if (symbol == 'E')
+			{
+				state = 4;
+				break;
+			}
 			return false;
 		}
-		case(2):
+		case 2:
 		{
+			if (symbol >= '0' && symbol <= '9')
+			{
+				state = 3;
+				break;
+			}
+			if (symbol == 'E')
+			{
+				state = 4;
+			}
+			else
+			{
+				return false;
+			}
+		case 3:
 			if (symbol >= '0' && symbol <= '9')
 			{
 				break;
 			}
 			if (symbol == 'E')
 			{
-				state = 3;
+				state = 4;
 				break;
 			}
 			return false;
 		}
-		case(3):
+		case 4:
 		{
 			if (symbol >= '0' && symbol <= '9' || symbol == '-' || symbol == '+')
 			{
-				state = 4;
+				state = 5;
 				break;
 			}
 			else
@@ -65,7 +80,7 @@ bool syntaxAnalyzer(string inputString)
 				return false;
 			}
 		}
-		case(4):
+		case 5:
 		{
 			if (symbol >= '0' && symbol <= '9')
 			{
@@ -78,7 +93,7 @@ bool syntaxAnalyzer(string inputString)
 		}
 		}
 	}
-	return true;
+	return state != 2 && state != 4;
 }
 
 void test1()
@@ -136,4 +151,5 @@ void main()
 	test1();
 	test2();
 	test3();
+	system("pause");
 }
