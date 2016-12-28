@@ -12,6 +12,8 @@ void main()
 	cout << "Min ost tree :" << endl;
 	ostTree = transformList(ostTree);
 	printList(ostTree);
+	deleteList(ostTree);
 	test1();
 	test2();
+	system("pause");
 }

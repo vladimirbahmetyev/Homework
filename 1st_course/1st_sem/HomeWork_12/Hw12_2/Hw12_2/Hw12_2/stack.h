@@ -1,10 +1,6 @@
 #pragma once
 
-struct List
-{
-	int value;
-	List *next;
-};
+struct List;
 
 //Add element to stack
 void push(int value, List *&head);
@@ -20,3 +16,7 @@ void printList(List *&head);
 
 //Invert List
 List *transformList(List *&head);
+
+int valueFromHead(List *head);
+
+List *nextHead(List *head);

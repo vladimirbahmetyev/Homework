@@ -4,6 +4,24 @@
 
 using namespace std;
 
+struct List
+{
+	int value;
+	List *next;
+};
+
+List *nextHead(List *head)
+{
+	return head->next;
+}
+
+int valueFromHead(List *head)
+{
+	int timeValue = pop(head);
+	push(timeValue, head);
+	return timeValue;
+}
+
 void push(int value, List *&head)
 {
 	List * newListElement = new List{ value, head };
@@ -16,7 +34,7 @@ int pop(List *&head)
 	int number = head->value;
 	List *oldHead = head;
 	head = head->next;
-	delete  oldHead;
+	delete  *&oldHead;
 	return number;
 }
 

@@ -27,7 +27,7 @@ int **loadMatrixFromFile(ifstream &inputFile, int sizeOfMatrix)
 	return matrix;
 }
 
-int foundingOfMinDistance(int nameOfRoot, bool isRootUsed[],int **matrix, int sizeOfMatrix )
+int foundingOfMinDistance(int nameOfRoot, bool isRootUsed[],int **matrix, int sizeOfMatrix)
 {
 	int minDistance = INT_MAX;
 	for (int i = 0; i < sizeOfMatrix; i++)
@@ -54,13 +54,13 @@ int foundingTheNearestRoot(List *&listOfRoots, bool isRootUsed[], int **matrix, 
 	int theNearestRoot = -1;
 	while (cursor)
 	{
-		int checkDistance = foundingOfMinDistance(cursor->value, isRootUsed, matrix, sizeOfMatrix);
+		int checkDistance = foundingOfMinDistance(valueFromHead(cursor), isRootUsed, matrix, sizeOfMatrix);
 		if (minDistance > checkDistance && checkDistance != -1)
 		{
 			minDistance = checkDistance;
-			theNearestRoot = cursor->value;
+			theNearestRoot = valueFromHead(cursor);
 		}
-		cursor = cursor->next;
+		cursor = nextHead(cursor);
 	}
 	if (minDistance != INT_MAX)
 	{
@@ -89,7 +89,8 @@ List *transFormingGraphToList(ifstream &inputFile)
 	inputFile >> sizeOfMatrix;
 	int **matrix = loadMatrixFromFile(inputFile, sizeOfMatrix);
 	bool *isRootUsed = new bool[sizeOfMatrix] {false};
-	List *listOfRoots = new List{ 0,nullptr };
+	List *listOfRoots = nullptr;
+	push(0, listOfRoots);
 	isRootUsed[0] = true;
 	for (int i = 1; i < sizeOfMatrix; i++)
 	{
@@ -105,7 +106,7 @@ List *transFormingGraphToList(ifstream &inputFile)
 bool checkingForTest(List *&testList, List *&keyList)
 {
 	bool flag = true;
-	while (testList->next)
+	while (nextHead(testList))
 	{
 		flag = flag && (pop(testList) == pop(keyList));
 	}
