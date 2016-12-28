@@ -1,6 +1,13 @@
 #include "stack.h";
 
-void push(int value, string word, List *&head)
+struct List
+{
+int value;
+string word;
+List *next;
+};
+
+void push(int value, const string &word, List *&head)
 {
 	List * newListElement = new List{ value, word, head };
 	head = newListElement;
@@ -47,4 +54,19 @@ int countList(List *&head)
 		return 1;
 	}
 	return (1 + countList(head->next));
+}
+
+bool addWordOrIncrieseCountOfWord(List *&head,const string &word)
+{
+	List *cursor = head;
+	while (cursor)
+	{
+		if (word == cursor->word)
+		{
+			cursor->value++;
+			return true;
+		}
+		cursor = cursor->next;
+	}
+	return false;
 }

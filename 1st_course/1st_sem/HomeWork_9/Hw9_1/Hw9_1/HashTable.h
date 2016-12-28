@@ -2,14 +2,8 @@
 
 #include "stack.h"
 
-//Count hash
-int hashKey(string word, int sizeOfHashTable);
-
-//Cheking is word in list or no
-bool isWordInList(List *&head, string word);
-
 //Add  word to hashTable
-void addElementToHashTable(List *&head, string word);
+void addElementToHashTable(List *head[], int sizeOfHashTable,const string &word);
 
 //Delete hashTable
 void deleteHashTable(List *hashTable[], int sizeOfHashtable);
@@ -27,4 +21,6 @@ double fullOfHashTable(List *hashTable[], int sizeOfHashTable);
 void printHashTable(List *hashTable[], int sizeOfHashTable);
 
 //Test
-void test_1();
+bool test1();
+
+bool test2();

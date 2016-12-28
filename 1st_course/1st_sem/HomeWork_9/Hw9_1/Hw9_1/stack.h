@@ -6,24 +6,22 @@
 
 using namespace std;
 
-struct List
-{
-	int value;
-	string word;
-	List *next;
-};
+struct List;
 
-//Add element to stack
-void push(int addToStack, string word, List *&head);
+//Add element to List
+void push(int addToList,const string &word, List *&head);
 
-//Delete element from stack
+//Delete element from List
 List pop(List *&head);
 
-//Print all stack
+//Print all List
 void printList(List *&head);
 
 //Delete all List
 void deleteList(List *&head);
 
-//Count length of list
+//Count length of List
 int countList(List *&head);
+
+//Check is this word in List and if it is true, increase count of word
+bool addWordOrIncrieseCountOfWord(List *&head, const string &word);

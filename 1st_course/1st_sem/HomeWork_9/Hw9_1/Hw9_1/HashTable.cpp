@@ -1,6 +1,6 @@
 #include "HashTable.h"
 
-int hashKey(string word, int sizeOfHashTable)
+int hashKey(const string &word, int sizeOfHashTable)
 {
 	int hash = 1;
 	for (int i = 0; i < size(word); i++)
@@ -18,26 +18,12 @@ int hashKey(string word, int sizeOfHashTable)
 	}
 }
 
-bool isWordInList(List *&head, string word)
+void addElementToHashTable(List *head[], int sizeOfHashTable, const string &word)
 {
-	List *cursor = head;
-	while (cursor)
+	int key = hashKey(word, sizeOfHashTable);
+	if (!addWordOrIncrieseCountOfWord(head[key], word))
 	{
-		if (word == cursor->word)
-		{
-			cursor->value++;
-			return true;
-		}
-		cursor = cursor->next;
-	}
-	return false;
-}
-
-void addElementToHashTable(List *&head, string word)
-{
-	if (!isWordInList(head, word))
-	{
-		push(1, word, head);
+		push(1, word, head[key]);
 	}
 }
 
@@ -101,14 +87,14 @@ void printHashTable(List *hashTable[], int sizeOfHashTable)
 	}
 }
 
-void test_1()
+bool test1()
 {
-	if (hashKey("Hello", 10000) == 1925)
-	{
-		cout << "Тест пройден" << endl << endl;
-	}
-	else
-	{
-		cout << "Тест не пройден" << endl << endl;
-	}
+	return hashKey("Hello", 10000) == 1925;
+}
+
+bool test2()
+{
+	List *hashTable[1] = { nullptr };
+	addElementToHashTable(hashTable, 1, "Hello");
+	return (addWordOrIncrieseCountOfWord(hashTable[0], "Hello"));	
 }
