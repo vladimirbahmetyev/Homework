@@ -1,5 +1,7 @@
 #include <iostream>
 #include "KMP.h"
+#include <fstream>
+#include <string>
 
 using namespace std;
 

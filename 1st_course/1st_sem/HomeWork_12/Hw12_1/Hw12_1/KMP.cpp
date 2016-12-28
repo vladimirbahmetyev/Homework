@@ -3,27 +3,17 @@
 
 using namespace std;
 
-int lengthOfString(string inputString)
-{
-	int i = 0;
-	while (inputString[i] != '\0')
-	{
-		i++;
-	}
-	return i;
-}
-
-int KMP(ifstream &inputFile, string inputString)
+int KMP(ifstream &inputFile, const string &inputString)
 {
 	setlocale(LC_ALL, "Russian");
-	int neededPrefixFunction = lengthOfString(inputString);
+	int neededPrefixFunction = inputString.size();
 	int position = 1;
 	int preferPrefixFunction = 0;
 	while (neededPrefixFunction != preferPrefixFunction && !inputFile.eof())
 	{
 		string stringFromFile = {};
 		getline(inputFile, stringFromFile);
-		for (int i = 0; i < lengthOfString(stringFromFile); i++)
+		for (int i = 0; i < inputString.size(); i++)
 		{
 			position++;
 			if (stringFromFile[i] == inputString[preferPrefixFunction])
