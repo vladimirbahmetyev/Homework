@@ -3,6 +3,15 @@
 
 using namespace std;
  
+void deleteMatrix(int **&matrix,int countOfCities)
+{
+	for (int i = 0; i < countOfCities; i++)
+	{
+		delete[] matrix[i];
+	}
+	delete matrix;
+}
+
 int **createDoubleArray(int sizeOfGraph)
 {
 	int **doubleArray = new int*[sizeOfGraph];
@@ -20,14 +29,14 @@ int **loadDataFromFile(ifstream &inputFile, int numberOfCities)
 	int **mapOfWorld = createDoubleArray(numberOfCities);
 	for (int i = 0; i < numberOfRoads;i++)
 	{
-		int City1 = 0;
-		int City2 = 0;
+		int city1 = 0;
+		int city2 = 0;
 		int lengthOfRoad = 0;
-		inputFile >> City1;
-		inputFile >> City2;
+		inputFile >> city1;
+		inputFile >> city2;
 		inputFile >> lengthOfRoad;
-		mapOfWorld[City1-1][City2-1] = lengthOfRoad;
-		mapOfWorld[City2-1][City1-1] = lengthOfRoad;
+		mapOfWorld[city1 - 1][city2 - 1] = lengthOfRoad;
+		mapOfWorld[city2 - 1][city1 - 1] = lengthOfRoad;
 	}
 	return mapOfWorld;
 }
@@ -52,9 +61,9 @@ int foundingOfMinDistance(int **mapOfWorld, bool isCity—aptured[], int numberOfC
 	}
 }
 
-int foundingOfTheNearestFreeCity(int **map, List *&ListWithCitys, bool isCity—aptured[], int numberOfCities)
+int foundingOfTheNearestFreeCity(int **map, List *&listWithCities, bool isCity—aptured[], int numberOfCities)
 {
-	List *copyOfList = ListWithCitys;
+	List *copyOfList = listWithCities;
 	int CityWithNearestFreeCity = 0;
 	int minDistance = INT_MAX;
 	while (copyOfList)
@@ -111,6 +120,7 @@ List **creatingCoutries(ifstream &inputFile, int countOfCapitals)
 		}
 		i++;
 	}
+	deleteMatrix(mapOfWorld, numberOfCities);
 	return citiesOfCountries;
 }
 
