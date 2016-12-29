@@ -7,13 +7,11 @@ using namespace std;
 void main()
 {
 	ifstream inputFile("inputFile.txt");
-	List *ostTree = transFormingGraphToList(inputFile);
+	int sizeOfMatrix = 0;
+	inputFile >> sizeOfMatrix;
+	int **ostTree = transFormingGraphToStack(inputFile, sizeOfMatrix);
 	inputFile.close();
 	cout << "Min ost tree :" << endl;
-	ostTree = transformList(ostTree);
-	printList(ostTree);
-	deleteList(ostTree);
-	test1();
-	test2();
-	system("pause");
+	printMatrix(ostTree, sizeOfMatrix);
+	deleteMatrix(ostTree, sizeOfMatrix);
 }

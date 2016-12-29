@@ -4,6 +4,16 @@
 
 using namespace std;
 
+void deleteMatrix(int **matrix, int sizeOfMatrix)
+{
+	for (int i = 0; i < sizeOfMatrix; i++)
+	{
+		delete matrix[i];
+	}
+	delete matrix;
+	matrix = nullptr;
+}
+
 int **createMatrix(int sizeOfMatrix)
 {
 	int **matrix = new int*[sizeOfMatrix];
@@ -27,7 +37,7 @@ int **loadMatrixFromFile(ifstream &inputFile, int sizeOfMatrix)
 	return matrix;
 }
 
-int foundingOfMinDistance(int nameOfRoot, bool isRootUsed[],int **matrix, int sizeOfMatrix)
+int foundingOfMinDistance(int nameOfRoot, bool isRootUsed[], int **matrix, int sizeOfMatrix)
 {
 	int minDistance = INT_MAX;
 	for (int i = 0; i < sizeOfMatrix; i++)
@@ -47,9 +57,9 @@ int foundingOfMinDistance(int nameOfRoot, bool isRootUsed[],int **matrix, int si
 	}
 }
 
-int foundingTheNearestRoot(List *&listOfRoots, bool isRootUsed[], int **matrix, int sizeOfMatrix)
+int foundingTheNearestRoot(Stack *&stackOfRoots, bool isRootUsed[], int **matrix, int sizeOfMatrix)
 {
-	List *cursor = listOfRoots;
+	Stack *cursor = stackOfRoots;
 	int minDistance = INT_MAX;
 	int theNearestRoot = -1;
 	while (cursor)
@@ -72,7 +82,7 @@ int foundingTheNearestRoot(List *&listOfRoots, bool isRootUsed[], int **matrix, 
 	}
 }
 
-int foundingRoot(int nameOfRoot, bool isRootUsed[], int **matrix,int sizeOfMatrix, int minDistance)
+int foundingRoot(int nameOfRoot, bool isRootUsed[], int **matrix, int sizeOfMatrix, int minDistance)
 {
 	for (int i = 0; i < sizeOfMatrix; i++)
 	{
@@ -83,74 +93,45 @@ int foundingRoot(int nameOfRoot, bool isRootUsed[], int **matrix,int sizeOfMatri
 	}
 }
 
-List *transFormingGraphToList(ifstream &inputFile)
+int **transFormingGraphToStack(ifstream &inputFile, int sizeOfMatrix)
 {
-	int sizeOfMatrix = 0;
-	inputFile >> sizeOfMatrix;
 	int **matrix = loadMatrixFromFile(inputFile, sizeOfMatrix);
 	bool *isRootUsed = new bool[sizeOfMatrix] {false};
-	List *listOfRoots = nullptr;
-	push(0, listOfRoots);
+	Stack *stackOfRoots = nullptr;
+	push(0, stackOfRoots);
 	isRootUsed[0] = true;
+	int **minOstTreeMatrix = createMatrix(sizeOfMatrix);
 	for (int i = 1; i < sizeOfMatrix; i++)
 	{
-		int theNearestRoot = foundingTheNearestRoot(listOfRoots, isRootUsed, matrix, sizeOfMatrix);
+		int theNearestRoot = foundingTheNearestRoot(stackOfRoots, isRootUsed, matrix, sizeOfMatrix);
 		int minDistance = foundingOfMinDistance(theNearestRoot, isRootUsed, matrix, sizeOfMatrix);
 		int newRoot = foundingRoot(theNearestRoot, isRootUsed, matrix, sizeOfMatrix, minDistance);
-		push(newRoot, listOfRoots);
+		minOstTreeMatrix[theNearestRoot][newRoot] = minDistance;
+		push(newRoot, stackOfRoots);
 		isRootUsed[newRoot] = true;
 	}
-	return listOfRoots;
+	deleteMatrix(matrix, sizeOfMatrix);
+	return minOstTreeMatrix;
 }
 
-bool checkingForTest(List *&testList, List *&keyList)
+bool checkingForTest(Stack *&testStack, Stack *&keyStack)
 {
 	bool flag = true;
-	while (nextHead(testList))
+	while (nextHead(testStack))
 	{
-		flag = flag && (pop(testList) == pop(keyList));
+		flag = flag && (pop(testStack) == pop(keyStack));
 	}
 	return flag;
 }
 
-void test1()
+void printMatrix(int **matrix, int sizeOfMatrix)
 {
-	ifstream inputFile("testByMariia.txt");
-	List *testList = transFormingGraphToList(inputFile);
-	List *keyList = nullptr;
-	push(0, keyList);
-	push(1, keyList);
-	push(3, keyList);
-	push(4, keyList);
-	push(2, keyList);
-	if (checkingForTest(testList, keyList))
+	for (int i = 0; i < sizeOfMatrix; i++)
 	{
-		cout << "Test 1 completed" << endl;
-	}
-	else
-	{
-		cout << "Test 1 failed" << endl;
-	}
-}
-
-void test2()
-{
-	ifstream inputFile("testByAlexey");
-	List *testList = transFormingGraphToList(inputFile);
-	List *keyList = nullptr;
-	push(0, keyList);
-	push(3, keyList);
-	push(4, keyList);
-	push(5, keyList);
-	push(6, keyList);
-	push(2, keyList);
-	push(1, keyList);
-	if (checkingForTest(testList, keyList))
-	{
-		cout << "Test 2 completed" << endl;
-	}
-	else
-	{
-		cout << "Test 2 failed" << endl;
+		for (int j = 0; j < sizeOfMatrix; j++)
+		{
+			cout << matrix[i][j] << " ";
+		}
+		cout << endl << endl;
 	}
 }

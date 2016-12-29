@@ -5,6 +5,9 @@
 
 using namespace std;
 
+//Delete Matrix
+void deleteMatrix(int **matrix, int sizeOfMatrix);
+
 //Create Matrix
 int **createMatrix(int sizeOfMatrix);
 
@@ -15,19 +18,16 @@ int **loadMatrixFromFile(ifstream &inputFile, int sizeOfMatrix);
 int foundingOfMinDistance(int nameOfRoot, bool isRootUsed[], int **matrix, int sizeOfMatrix);
 
 //Find root with the nearest free root
-int foundingTheNearestRoot(List *&listOfRoots, bool isRootUsed[], int **matrix, int sizeOfMatrix);
+int foundingTheNearestRoot(Stack *&StackOfRoots, bool isRootUsed[], int **matrix, int sizeOfMatrix);
 
 //Find root on distance
 int foundingRoot(int nameOfRoot, bool isRootUsed[], int **matrix, int sizeOfMatrix, int minDistance);
 
-//Transform graph to list
-List *transFormingGraphToList(ifstream &inputFile);
+//Transform graph to Stack
+int **transFormingGraphToStack(ifstream &inputFile, int sizeOfMatrix);
 
 //Cheking twst with key
-bool checkingForTest(List *&testList, List *&keyList);
+bool checkingForTest(Stack *&testStack, Stack *&keyStack);
 
-//Test_1
-void test1();
-
-//Test_2
-void test2();
+//Print Matrix
+void printMatrix(int **matrix, int sizeOfMatrix);

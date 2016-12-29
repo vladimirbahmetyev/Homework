@@ -4,53 +4,60 @@
 
 using namespace std;
 
-struct List
+struct Stack
 {
 	int value;
-	List *next;
+	Stack *next;
 };
 
-List *nextHead(List *head)
+Stack *nextHead(Stack *head)
 {
 	return head->next;
 }
 
-int valueFromHead(List *head)
+int valueFromHead(Stack *&head)
 {
 	int timeValue = pop(head);
 	push(timeValue, head);
 	return timeValue;
 }
 
-void push(int value, List *&head)
+void push(int value, Stack *&head)
 {
-	List * newListElement = new List{ value, head };
-	head = newListElement;
-	newListElement = nullptr;
+	Stack * newStackElement = new Stack{ value, head };
+	head = newStackElement;
+	newStackElement = nullptr;
 }
 
-int pop(List *&head)
+int pop(Stack *&head)
 {
+	if (!head)
+	{
+		return 0;
+	}
 	int number = head->value;
-	List *oldHead = head;
+	Stack *oldHead = head;
 	head = head->next;
-	delete  *&oldHead;
+	delete  oldHead;
 	return number;
 }
 
-void deleteList(List *&head)
+void deleteStack(Stack *&head)
 {
+	if (!head)
+	{
+		return;
+	}
 	while (head)
 	{
 		pop(head);
 	}
-	delete head;
 	head = nullptr;
 }
 
-void printList(List *&head)
+void printStack(Stack *&head)
 {
-	List *cursor = head;
+	Stack *cursor = head;
 	while (cursor)
 	{
 		cout << cursor->value + 1 << " ";
@@ -59,13 +66,13 @@ void printList(List *&head)
 	cout << endl << endl;
 }
 
-List *transformList(List *&head)
+Stack *transformStack(Stack *&head)
 {
-	List *newList = nullptr;
+	Stack *newStack = nullptr;
 	while (head)
 	{
-		push(pop(head), newList);
+		push(pop(head), newStack);
 	}
-	head = newList;
-	return newList;
+	head = newStack;
+	return newStack;
 }
