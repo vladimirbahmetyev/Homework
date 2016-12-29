@@ -47,6 +47,10 @@ void deleteList(List *&head)
 
 int headOfStack(List *&head)
 {
+	if (!head)
+	{
+		return -1;
+	}
 	int timeHead = pop(head);
 	push(timeHead, head);
 	return timeHead;

@@ -18,7 +18,7 @@ int main()
 	List *stack = nullptr;
 	for (int i = 0; i < strlen(example); i++)
 	{
-		if ((example[i] >= (int)'0') && (example[i] <= (int)'9'))
+		if ((example[i] >= '0') && (example[i] <= '9'))
 		{
 			outExample[position] = example[i];
 			position++;
@@ -27,13 +27,13 @@ int main()
 		}
 		if (example[i] == '(')
 		{
-			push((int)'(', stack);
+			push('(', stack);
 		}
 		if (example[i] == ')')
 		{
-			while (headOfStack(stack) != (int)'(')
+			while (headOfStack(stack) != '(')
 			{
-				outExample[position] = ((char)headOfStack(stack));
+				outExample[position] = headOfStack(stack);
 				position++;
 				outExample[position] = ' ';
 				position++;
@@ -43,15 +43,14 @@ int main()
 		}
 		if ((example[i] == '+') || (example[i] == '-') || (example[i] == '/') || (example[i] == '*'))
 		{
-			if (((example[i] == '+') || (example[i] == '-') || ((example[i] == '*') && ((char)headOfStack(stack) != '-') && ((char)headOfStack(stack) != '+')) || ((example[i] == '/') && ((char)headOfStack(stack) != ((char)headOfStack(stack) != '-')) && ((char)headOfStack(stack) != '+'))) && ((char)headOfStack(stack) != '(') && (stack))
+			if (((example[i] == '+') || (example[i] == '-') || ((example[i] == '*') && (headOfStack(stack) != '-') && (headOfStack(stack) != '+')) || ((example[i] == '/') && (headOfStack(stack) != (headOfStack(stack) != '-')) && (headOfStack(stack) != '+'))) && stack && headOfStack(stack) != '(' )
 			{
-				outExample[position] = (char)headOfStack(stack);
-				pop(stack);
+				outExample[position] = pop(stack);
 				position++;
 				outExample[position] = ' ';
 				position++;
 			}
-			push((int)example[i], stack);
+			push(example[i], stack);
 		}
 	}
 	while (stack)
