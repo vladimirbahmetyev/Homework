@@ -14,4 +14,5 @@ void main()
 	cout << "Min ost tree :" << endl;
 	printMatrix(ostTree, sizeOfMatrix);
 	deleteMatrix(ostTree, sizeOfMatrix);
+	system("pause");
 }

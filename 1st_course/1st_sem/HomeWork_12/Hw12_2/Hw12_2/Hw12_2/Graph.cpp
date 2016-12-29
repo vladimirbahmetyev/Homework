@@ -68,7 +68,7 @@ int foundingTheNearestRoot(Stack *&stackOfRoots, bool isRootUsed[], int **matrix
 		if (minDistance > checkDistance && checkDistance != -1)
 		{
 			minDistance = checkDistance;
-			theNearestRoot = valueFromHead(cursor);
+			theNearestRoot = valueFromHead(stackOfRoots);
 		}
 		push(pop(stackOfRoots), cursor);
 	}
@@ -128,8 +128,15 @@ bool checkingForTest(Stack *&testStack, Stack *&keyStack)
 
 void printMatrix(int **matrix, int sizeOfMatrix)
 {
+	cout << "  ";
 	for (int i = 0; i < sizeOfMatrix; i++)
 	{
+		cout << i + 1 << " ";
+	}
+	cout << endl;
+	for (int i = 0; i < sizeOfMatrix; i++)
+	{
+		cout << i + 1 << ' ';
 		for (int j = 0; j < sizeOfMatrix; j++)
 		{
 			cout << matrix[i][j] << " ";
