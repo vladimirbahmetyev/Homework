@@ -4,23 +4,18 @@
 #include "stack.h"
 #include <string>
 
-const int sizeOfExample = 50;
-
 using namespace std;
 
-string *sortStation(const string &example)
+void sortStation(const string &example)
 {
-	int position = 0;
 	Stack *stack = nullptr;
-	string *outExample = new string[sizeOfExample];
+	string outExample = "";
 	for (int i = 0; i < example.length(); i++)
 	{
 		if ((example[i] >= '0') && (example[i] <= '9'))
 		{
-			outExample[position] = example[i];
-			position++;
-			outExample[position] = ' ';
-			position++;
+			outExample += example[i];
+			outExample += " ";
 		}
 		if (example[i] == '(')
 		{
@@ -30,10 +25,8 @@ string *sortStation(const string &example)
 		{
 			while (headOfStack(stack) != '(')
 			{
-				outExample[position] = headOfStack(stack);
-				position++;
-				outExample[position] = ' ';
-				position++;
+				outExample += headOfStack(stack);
+				outExample += " ";
 				pop(stack);
 			}
 			pop(stack);
@@ -42,23 +35,23 @@ string *sortStation(const string &example)
 		{
 			if (((example[i] == '+') || (example[i] == '-') || ((example[i] == '*') && (headOfStack(stack) != '-') && (headOfStack(stack) != '+')) || ((example[i] == '/') && (headOfStack(stack) != (headOfStack(stack) != '-')) && (headOfStack(stack) != '+'))) && stack && headOfStack(stack) != '(')
 			{
-				outExample[position] = pop(stack);
-				position++;
-				outExample[position] = ' ';
-				position++;
+				outExample += pop(stack);
+				outExample += " ";
 			}
 			push(example[i], stack);
 		}
 	}
 	while (stack)
 	{
-		outExample[position] = pop(stack);
-		position++;
-		outExample[position] = ' ';
-		position++;
+		outExample += pop(stack);
+		outExample += " ";
 	}
 	delete stack;
-	return outExample;
+	for (int i = 0; i < outExample.length(); i++)
+	{
+		cout << outExample[i];
+	}
+	cout << endl;
 }
 
 void main()
@@ -67,11 +60,6 @@ void main()
 	string example = {};
 	cout << "Введите пример: ";
 	getline(cin, example);
-	string *outExample = sortStation(example);
 	cout << "Пример после сортировочной станции: ";
-	for (int i = 0; i < sizeOfExample; i++)
-	{
-		cout << outExample[i];
-	}
-	cout << endl;
+	sortStation(example);
 }
