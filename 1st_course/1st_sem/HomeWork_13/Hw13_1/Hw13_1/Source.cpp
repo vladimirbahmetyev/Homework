@@ -48,10 +48,6 @@ bool syntaxAnalyzer(const string &inputString)
 				state = 3;
 				break;
 			}
-			if (symbol == 'E')
-			{
-				state = 4;
-			}
 			else
 			{
 				return false;
@@ -70,10 +66,14 @@ bool syntaxAnalyzer(const string &inputString)
 		}
 		case 4:
 		{
-			if (symbol >= '0' && symbol <= '9' || symbol == '-' || symbol == '+')
+			if (symbol == '-' || symbol == '+')
 			{
 				state = 5;
 				break;
+			}
+			if (symbol >= '0' && symbol <= '9')
+			{
+				state = 6;
 			}
 			else
 			{
@@ -81,6 +81,17 @@ bool syntaxAnalyzer(const string &inputString)
 			}
 		}
 		case 5:
+		{
+			if (symbol >= '0' && symbol <= '9')
+			{
+				state = 6;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		case 6:
 		{
 			if (symbol >= '0' && symbol <= '9')
 			{
@@ -93,7 +104,7 @@ bool syntaxAnalyzer(const string &inputString)
 		}
 		}
 	}
-	return state != 2 && state != 4;
+	return state != 2 && state != 4 && state != 5;
 }
 
 void test1()
