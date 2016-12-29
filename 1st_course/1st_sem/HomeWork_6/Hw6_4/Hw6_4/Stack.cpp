@@ -4,24 +4,36 @@
 
 using namespace std;
 
-void push(Record newRecord, List *&head)
+struct Record
 {
-	List *newElement = new List{ newRecord, head };
+	string name;
+	int number;
+};
+
+struct Stack
+{
+	Record record;
+	Stack *next;
+};
+
+void push(Record newRecord, Stack *&head)
+{
+	Stack *newElement = new Stack{ newRecord, head };
 	head = newElement;
 }
 
-Record pop(List *&head)
+Record pop(Stack *&head)
 {
 	Record oldRecord = head->record;
-	List *oldHead = head;
+	Stack *oldHead = head;
 	head = head->next;
 	delete oldHead;
 	return oldRecord;
 }
 
-void printList(List *head)
-{
-	List *printHead = head;
+void printList(Stack *head)
+{	
+	Stack *printHead = head;
 	while (printHead!= nullptr)
 	{
 		cout << printHead->record.name << " " << printHead->record.number << endl;
@@ -29,7 +41,7 @@ void printList(List *head)
 	}
 }
 
-void deleteList(List *&head)
+void deleteList(Stack *&head)
 {
 	while (head->next)
 	{
@@ -37,4 +49,26 @@ void deleteList(List *&head)
 	}
 	delete head;
 	head = nullptr;
+}
+
+int sizeOfStack(Stack *&head)
+{
+	int size = 0;
+	Stack *cursor = head;
+	while (cursor)
+	{
+		cursor = cursor->next;
+		size++;
+	}
+	return size;
+}
+
+Stack *invertStack(Stack *&head)
+{
+	Stack *newList = nullptr;
+	while (head)
+	{
+		push(pop(head), newList);
+	}
+	return newList;
 }

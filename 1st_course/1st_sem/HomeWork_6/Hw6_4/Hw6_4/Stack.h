@@ -1,25 +1,28 @@
 #pragma once
 
 #include <string>
+#include "MergeSort.h"
 
 using namespace std;
 
-struct Record
-{
-	string name;
-	int number;
-};
+struct Record;
 
-struct List
-{
-	Record record;
-	List *next;
-};
+struct Stack;
 
-void push(Record newRecord, List *&head);
+//Add record to stack
+void push(Record newRecord, Stack *&head);
 
-Record pop(List *&head);
+//Get value from stack
+Record pop(Stack *&head);
 
-void printList(List *head);
+//Print stack
+void printList(Stack *head);
 
-void deleteList(List *&head);
+//Delete stack
+void deleteList(Stack *&head);
+
+//Count size of stack
+int sizeOfStack(Stack *&head);
+
+//Invert Stack
+Stack *invertStack(Stack *&head);
