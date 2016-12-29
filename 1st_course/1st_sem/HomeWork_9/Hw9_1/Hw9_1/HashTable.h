@@ -3,22 +3,19 @@
 #include "stack.h"
 
 //Add  word to hashTable
-void addElementToHashTable(List *head[], int sizeOfHashTable,const string &word);
+void addElementToHashTable(Stack *head[], int sizeOfHashTable,const string &word);
 
-//Delete hashTable
-void deleteHashTable(List *hashTable[], int sizeOfHashtable);
+//Find the longest Stack in hashTable
+int maxLengthOfStack(Stack *hashTable[], int sizeOfHashTable);
 
-//Find the longest list in hashTable
-int maxLengthOfList(List *hashTable[], int sizeOfHashTable);
-
-//Count average length of list in hashTable
-double averageLengthOfList(List *hashTable[], int sizeOfHashTable);
+//Count average length of Stack in hashTable
+double averageLengthOfStack(Stack *hashTable[], int sizeOfHashTable);
 
 //Count fulling hashTable
-double fullOfHashTable(List *hashTable[], int sizeOfHashTable);
+double fullOfHashTable(Stack *hashTable[], int sizeOfHashTable);
 
 //Print hashTable
-void printHashTable(List *hashTable[], int sizeOfHashTable);
+void printHashTable(Stack *hashTable[], int sizeOfHashTable);
 
 //Test
 bool test1();

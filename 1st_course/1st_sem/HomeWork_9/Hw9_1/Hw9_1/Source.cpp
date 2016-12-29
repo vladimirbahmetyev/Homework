@@ -11,7 +11,7 @@ void main()
 		cout << "Ошибка" << endl;
 		return;
 	}
-	List *hashTable[sizeOfHashTable] = {nullptr};
+	Stack *hashTable[sizeOfHashTable] = {nullptr};
 	ifstream file("inputfile.txt");
 	while (!file.eof())
 	{
@@ -20,8 +20,8 @@ void main()
 		addElementToHashTable(hashTable, sizeOfHashTable , word);
 	}
 	printHashTable(hashTable, sizeOfHashTable);
-	cout << "Максимальная длина списка: " << maxLengthOfList(hashTable, sizeOfHashTable) << endl;
-	cout << "Средняя длина списка: " << averageLengthOfList(hashTable, sizeOfHashTable) << endl;
+	cout << "Максимальная длина списка: " << maxLengthOfStack(hashTable, sizeOfHashTable) << endl;
+	cout << "Средняя длина списка: " << averageLengthOfStack(hashTable, sizeOfHashTable) << endl;
 	cout << "Коэффициент заполнения: " << fullOfHashTable(hashTable, sizeOfHashTable) << endl;
-	deleteHashTable(hashTable, sizeOfHashTable);
+	deleteArrayOfStacks(hashTable, sizeOfHashTable);
 }

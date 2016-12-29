@@ -1,31 +1,31 @@
 #include "stack.h";
 
-struct List
+struct Stack
 {
-int value;
-string word;
-List *next;
+	int value;
+	string word;
+	Stack *next;
 };
 
-void push(int value, const string &word, List *&head)
+void push(int value, const string &word, Stack *&head)
 {
-	List * newListElement = new List{ value, word, head };
-	head = newListElement;
-	newListElement = nullptr;
+	Stack * newStackElement = new Stack{ value, word, head };
+	head = newStackElement;
+	newStackElement = nullptr;
 }
 
-List pop(List *&head)
+Stack pop(Stack *&head)
 {
-	List returnList = *head;
-	List *oldHead = head;
+	Stack returnStack = *head;
+	Stack *oldHead = head;
 	head = head->next;
 	delete  oldHead;
-	return returnList;
+	return returnStack;
 }
 
-void printList(List *&head)
+void printStack(Stack *&head)
 {
-	List *printHead = head;
+	Stack *printHead = head;
 	while (printHead->next)
 	{
 		cout << printHead->word << " " << printHead->value << endl;
@@ -33,7 +33,7 @@ void printList(List *&head)
 	}
 }
 
-void deleteList(List *&head)
+void deleteStack(Stack *&head)
 {
 	while (head->next)
 	{
@@ -43,7 +43,7 @@ void deleteList(List *&head)
 	head = nullptr;
 }
 
-int countList(List *&head)
+int countStack(Stack *&head)
 {
 	if (!head)
 	{
@@ -53,12 +53,12 @@ int countList(List *&head)
 	{
 		return 1;
 	}
-	return (1 + countList(head->next));
+	return (1 + countStack(head->next));
 }
 
-bool addWordOrIncrieseCountOfWord(List *&head,const string &word)
+bool addWordOrIncrieseCountOfWord(Stack *&head,const string &word)
 {
-	List *cursor = head;
+	Stack *cursor = head;
 	while (cursor)
 	{
 		if (word == cursor->word)
@@ -69,4 +69,17 @@ bool addWordOrIncrieseCountOfWord(List *&head,const string &word)
 		cursor = cursor->next;
 	}
 	return false;
+}
+
+void deleteArrayOfStacks(Stack *hashTable[], int sizeOfHashtable)
+{
+	for (int i = 0; i < sizeOfHashtable; i++)
+	{
+		if (hashTable[i])
+		{
+			deleteStack(hashTable[i]);
+		}
+	}
+	delete[] * hashTable;
+	hashTable = nullptr;
 }

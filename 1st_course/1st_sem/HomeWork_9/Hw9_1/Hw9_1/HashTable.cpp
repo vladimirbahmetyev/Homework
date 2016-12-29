@@ -18,7 +18,7 @@ int hashKey(const string &word, int sizeOfHashTable)
 	}
 }
 
-void addElementToHashTable(List *head[], int sizeOfHashTable, const string &word)
+void addElementToHashTable(Stack *head[], int sizeOfHashTable, const string &word)
 {
 	int key = hashKey(word, sizeOfHashTable);
 	if (!addWordOrIncrieseCountOfWord(head[key], word))
@@ -27,62 +27,49 @@ void addElementToHashTable(List *head[], int sizeOfHashTable, const string &word
 	}
 }
 
-void deleteHashTable(List *hashTable[], int sizeOfHashtable)
+int maxLengthOfStack(Stack *hashTable[], int sizeOfHashTable)
 {
-	for (int i = 0; i < sizeOfHashtable; i++)
-	{
-		if (hashTable[i])
-		{
-			deleteList(hashTable[i]);
-		}
-	}
-	delete[] *hashTable;
-	hashTable = nullptr;
-}
-
-int maxLengthOfList(List *hashTable[], int sizeOfHashTable)
-{
-	int maxList = 0;
+	int maxStack = 0;
 	for (int i = 0; i < sizeOfHashTable; i++)
 	{
-		if (maxList < countList(hashTable[i]))
+		if (maxStack < countStack(hashTable[i]))
 		{
-			maxList = countList(hashTable[i]);
+			maxStack = countStack(hashTable[i]);
 		}
 	}
-	return maxList;
+	return maxStack;
 }
 
-double averageLengthOfList(List *hashTable[], int sizeOfHashTable)
+double averageLengthOfStack(Stack *hashTable[], int sizeOfHashTable)
 {
 	double length = 0;
 	for (int i = 0; i < sizeOfHashTable; i++)
 	{
-		length = length + (countList(hashTable[i]));
+		length = length + (countStack(hashTable[i]));
 	}
 	return length / sizeOfHashTable;
 } 
 
-double fullOfHashTable(List *hashTable[], int sizeOfHashTable)
+double fullOfHashTable(Stack *hashTable[], int sizeOfHashTable)
 {
-	double numberOfFullLists = 0;
+	double numberOfFullStacks = 0;
 	for (int i = 0; i < sizeOfHashTable; i++)
 	{
 		if (hashTable[i])
 		{
-			numberOfFullLists++;
+			numberOfFullStacks++;
 		}
 	}
-	return numberOfFullLists / sizeOfHashTable;
+	return numberOfFullStacks / sizeOfHashTable;
 }
 
-void printHashTable(List *hashTable[], int sizeOfHashTable)
+void printHashTable(Stack *hashTable[], int sizeOfHashTable)
 {
 	for (int i = 0; i < sizeOfHashTable; i++)
 	{
 		if (hashTable[i])
 		{
-			printList(hashTable[i]);
+			printStack(hashTable[i]);
 		}
 	}
 }
@@ -94,7 +81,7 @@ bool test1()
 
 bool test2()
 {
-	List *hashTable[1] = { nullptr };
+	Stack *hashTable[1] = { nullptr };
 	addElementToHashTable(hashTable, 1, "Hello");
 	return (addWordOrIncrieseCountOfWord(hashTable[0], "Hello"));	
 }

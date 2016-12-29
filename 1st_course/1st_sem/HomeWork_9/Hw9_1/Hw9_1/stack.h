@@ -6,22 +6,25 @@
 
 using namespace std;
 
-struct List;
+struct Stack;
 
-//Add element to List
-void push(int addToList,const string &word, List *&head);
+//Add element to Stack
+void push(int addToStack,const string &word, Stack *&head);
 
-//Delete element from List
-List pop(List *&head);
+//Delete element from Stack
+Stack pop(Stack *&head);
 
-//Print all List
-void printList(List *&head);
+//Print all Stack
+void printStack(Stack *&head);
 
-//Delete all List
-void deleteList(List *&head);
+//Delete all Stack
+void deleteStack(Stack *&head);
 
-//Count length of List
-int countList(List *&head);
+//Count length of Stack
+int countStack(Stack *&head);
 
-//Check is this word in List and if it is true, increase count of word
-bool addWordOrIncrieseCountOfWord(List *&head, const string &word);
+//Check is this word in Stack and if it is true, increase count of word
+bool addWordOrIncrieseCountOfWord(Stack *&head, const string &word);
+
+//Delete array of stacks
+void deleteArrayOfStacks(Stack *hashTable[], int sizeOfHashtable);
