@@ -13,3 +13,6 @@ void printList(List *head);
 
 //Delete all List
 void deleteList(List *&head);
+
+//Get last value from stack
+int headOfStack(List *&head);

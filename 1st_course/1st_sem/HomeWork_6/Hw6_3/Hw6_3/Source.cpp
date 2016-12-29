@@ -7,13 +7,6 @@ int const sizeOfExample = 256;
 
 using namespace std;
 
-int headOfStack(List *head)
-{
-	int timeHead = pop(head);
-	push(timeHead, head);
-	return timeHead;
-}
-
 int main()
 {
 	setlocale(LC_ALL, "RUSSIAN");
@@ -25,7 +18,7 @@ int main()
 	List *stack = nullptr;
 	for (int i = 0; i < strlen(example); i++)
 	{
-		if ((example[i] >= '0') && (example[i] <= '9'))
+		if ((example[i] >= (int)'0') && (example[i] <= (int)'9'))
 		{
 			outExample[position] = example[i];
 			position++;
@@ -34,13 +27,13 @@ int main()
 		}
 		if (example[i] == '(')
 		{
-			push('(', stack);
+			push((int)'(', stack);
 		}
 		if (example[i] == ')')
 		{
-			while (headOfStack(stack) != '(')
+			while (headOfStack(stack) != (int)'(')
 			{
-				outExample[position] = (headOfStack(stack));
+				outExample[position] = ((char)headOfStack(stack));
 				position++;
 				outExample[position] = ' ';
 				position++;
@@ -50,21 +43,20 @@ int main()
 		}
 		if ((example[i] == '+') || (example[i] == '-') || (example[i] == '/') || (example[i] == '*'))
 		{
-			if (((example[i] == '+') || (example[i] == '-') || ((example[i] == '*') && (headOfStack(stack) != '-') && (headOfStack(stack) != '+')) || ((example[i] == '/') && (headOfStack(stack) != (headOfStack(stack) != '-')) && (headOfStack(stack) != '+'))) && (headOfStack(stack) != '(') && (stack))
+			if (((example[i] == '+') || (example[i] == '-') || ((example[i] == '*') && ((char)headOfStack(stack) != '-') && ((char)headOfStack(stack) != '+')) || ((example[i] == '/') && ((char)headOfStack(stack) != ((char)headOfStack(stack) != '-')) && ((char)headOfStack(stack) != '+'))) && ((char)headOfStack(stack) != '(') && (stack))
 			{
-				outExample[position] = headOfStack(stack);
+				outExample[position] = (char)headOfStack(stack);
 				pop(stack);
 				position++;
 				outExample[position] = ' ';
 				position++;
 			}
-			push(example[i], stack);
+			push((int)example[i], stack);
 		}
 	}
 	while (stack)
 	{
-		outExample[position] = headOfStack(stack);
-		pop(stack);
+		outExample[position] = pop(stack);
 		position++;
 		outExample[position] = ' ';
 		position++;

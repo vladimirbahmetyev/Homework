@@ -44,3 +44,10 @@ void deleteList(List *&head)
 	delete head;
 	head = nullptr;
 }
+
+int headOfStack(List *&head)
+{
+	int timeHead = pop(head);
+	push(timeHead, head);
+	return timeHead;
+}
