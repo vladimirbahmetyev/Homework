@@ -35,13 +35,13 @@ void zag(Tree  *&binaryTree)
 	binaryTree = oldElement;
 }
 
-bool foundingOfNumber(Tree *&binaryTree, Array *value)
+bool foundingOfNumber(Tree *&binaryTree, const string &key)
 {
 	if (!binaryTree)
 	{
 		return false;
 	}
-	if (binaryTree->chunk.key == value->key)
+	if (binaryTree->chunk.key == key)
 	{
 		return true;
 	}
@@ -49,99 +49,100 @@ bool foundingOfNumber(Tree *&binaryTree, Array *value)
 	bool rightBranch = binaryTree->rightSon;
 	if (binaryTree->leftSon)
 	{
-		leftBranch = foundingOfNumber(binaryTree->leftSon, value);
+		leftBranch = foundingOfNumber(binaryTree->leftSon, key);
 	}
 	if (binaryTree->rightSon)
 	{
-		rightBranch = foundingOfNumber(binaryTree->rightSon, value);
+		rightBranch = foundingOfNumber(binaryTree->rightSon, key);
 	}
 	return leftBranch || rightBranch;
 }
 
-void splayToKey(Tree *&binaryTree, Array *value)
+void splayToKey(Tree *&binaryTree, const string &key)
 {
-	if (binaryTree->chunk.key == value->key)
+	if (binaryTree->chunk.key == key)
 	{
 		return;
 	}
 	if (binaryTree->leftSon)
 	{
-		if (foundingOfNumber(binaryTree->leftSon, value))
+		if (foundingOfNumber(binaryTree->leftSon, key))
 		{
-			splayToKey(binaryTree->leftSon, value);
+			splayToKey(binaryTree->leftSon, key);
 			zig(binaryTree);
 		}
 	}
 	if (binaryTree->rightSon)
 	{
-		if (foundingOfNumber(binaryTree->rightSon, value))
+		if (foundingOfNumber(binaryTree->rightSon, key))
 		{
-			splayToKey(binaryTree->rightSon, value);
+			splayToKey(binaryTree->rightSon, key);
 			zag(binaryTree);
 		}
 	}
 }
 
-void addString(Tree *&binaryTree, Array *value)
+void addString(Tree *&binaryTree, const string &key, const string &newString)
 {
+	Array value = {key, newString};
 	if (!binaryTree)
 	{
-		binaryTree = new Tree{ nullptr, nullptr, *value };
+		binaryTree = new Tree{ nullptr, nullptr, value };
 		return;
 	}
-	if (binaryTree->chunk.key == value->key)
+	if (binaryTree->chunk.key == value.key)
 	{
-		binaryTree->chunk = *value;
+		binaryTree->chunk = value;
 		return;
 	}
 	else
 	{
-		if ( value->key < binaryTree->chunk.key)
+		if ( value.key < binaryTree->chunk.key)
 		{
 			if (!binaryTree->leftSon)
 			{
-				binaryTree->leftSon = new Tree{ nullptr, nullptr, *value};
+				binaryTree->leftSon = new Tree{ nullptr, nullptr, value};
 			}
 			else
 			{
 
-				addString(binaryTree->leftSon, value);
+				addString(binaryTree->leftSon, key, newString);
 			}
 		}
 		else
 		{
 			if (!binaryTree->rightSon)
 			{
-				binaryTree->rightSon = new Tree{ nullptr, nullptr, *value };
+				binaryTree->rightSon = new Tree{ nullptr, nullptr, value };
 			}
 			else
 			{
-				addString(binaryTree->rightSon, value);
+				addString(binaryTree->rightSon, key, newString);
 			}
 		}
 	}
-	splayToKey(binaryTree, value);
+	splayToKey(binaryTree, value.key);
 }
 
-void deleteStringFromTree(Tree *&binaryTree, int value)
+void deleteStringFromTree(Tree *&binaryTree, const string &key)
 {
 	if (!binaryTree)
 	{
 		return;
 	}
-	if (foundingOfNumber(binaryTree, value))
+	if (foundingOfNumber(binaryTree, key))
 	{
-		splayToKey(binaryTree, value);
-		if ((binaryTree->value > value) || (binaryTree->value < value))
+		splayToKey(binaryTree, key);
+		if ((binaryTree->chunk.key > key) || (binaryTree->chunk.key < key))
 		{
-			if (binaryTree->value > value)
+			if (binaryTree->chunk.key > key)
 			{
-				deleteStringFromTree(binaryTree->leftSon, value);
+				deleteStringFromTree(binaryTree->leftSon, key);
 				return;
 			}
 			else
 			{
-				deleteStringFromTree(binaryTree->rightSon, value);
+				deleteStringFromTree(binaryTree->rightSon, key);
 				return;
 			}
 		}
@@ -172,21 +173,22 @@ void deleteStringFromTree(Tree *&binaryTree, int value)
 		{
 			newElement = newElement->rightSon;
 		}
-		binaryTree->value = newElement->value;
-		deleteStringFromTree(newElement, newElement->value);
+		binaryTree->chunk = newElement->chunk;
+		deleteStringFromTree(newElement, newElement->chunk.key);
 	}
 }
 
-void printStringFromTree(Tree *&binaryTree, Array *value)
+void printStringFromTree(Tree *&binaryTree, const string &key)
 {
 	if (!binaryTree)
 	{
 		return;
 	}
-	if (foundingOfNumber(*&binaryTree, value))
+	if (foundingOfNumber(*&binaryTree, key))
 	{
-		splayToKey(binaryTree, value);
+		splayToKey(binaryTree, key);
 	}
+	cout << binaryTree->chunk.value << endl;
 }
 
 void deleteSplayTree(Tree *&binaryTree)
@@ -201,28 +203,4 @@ void deleteSplayTree(Tree *&binaryTree)
 	}
 	delete binaryTree;
 	binaryTree = nullptr;
-}
-
-void test()
-{
-	Tree *testTree = new Tree{ nullptr, nullptr, 0, " " };
-	for (int i = 1; i < 100; i++)
-	{
-		addString(*&testTree, i, " ");
-	}
-	bool resultOfTest = true;
-	for (int i = 99; i > 0; i--)
-	{
-		splayToKey(*&testTree, (char)i);
-		resultOfTest = resultOfTest && (i == testTree->chunk);
-	}
-	if (resultOfTest)
-	{
-		cout << "Тест пройден" << endl << endl;
-	}
-	else
-	{
-		cout << "Тест не пройден" << endl << endl;
-	}
-	deleteSplayTree(*&testTree);
 }

@@ -9,19 +9,16 @@ struct Tree;
 struct Array;
 
 //Check is value in tree
-bool foundingOfNumber(Tree *&binaryTree, Array *value);
+bool foundingOfNumber(Tree *&binaryTree, const string &key);
 
 //Add string to tree
-void addString(Tree *&binaryTree, Array *value);
+void addString(Tree *&binaryTree, const string &key, const string &newString);
 
 //Delete string from tree
-void deleteStringFromTree(Tree *&binaryTree, int value);
+void deleteStringFromTree(Tree *&binaryTree, const string &value);
 
 //Print string with key
-void printStringFromTree(Tree *&binaryTree, Array *value);
+void printStringFromTree(Tree *&binaryTree, const string &value);
 
 //Delete Splay Tree
 void deleteSplayTree(Tree *&binaryTree);
-
-//Simple Test
-void test();
