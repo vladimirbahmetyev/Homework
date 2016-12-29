@@ -1,13 +1,14 @@
 ﻿#include "Stack.h"
 #include <iostream>
+#include "MergeSort.h"
 
 using namespace std;
 
 void main()
 {
 	setlocale(LC_ALL, "Russian");
-	Stack *telephoneList = nullptr;
-	loadFromFile(telephoneList);
+	Stack *telephoneStack = nullptr;
+	loadFromFile(telephoneStack);
 	int command = -1;
 	test1();
 	test2();
@@ -19,26 +20,26 @@ void main()
 		cin >> command;
 		switch (command)
 		{
-		case(0):
+		case 0:
 		{
 			break;
 		}
 		case 1:
 		{
-			telephoneList = mergeSort(telephoneList, command);
-			telephoneList = invertStack(telephoneList);
-			printList(telephoneList);
+			telephoneStack = mergeSort(telephoneStack, command);
+			telephoneStack = invertStack(telephoneStack);
+			printStack(telephoneStack);
 			break;
 		}
 		case 2:
 		{
-			telephoneList = mergeSort(telephoneList, command);
-			telephoneList = invertStack(telephoneList);
-			printList(telephoneList);
+			telephoneStack = mergeSort(telephoneStack, command);
+			telephoneStack = invertStack(telephoneStack);
+			printStack(telephoneStack);
 			break;
 		}
 		default: cout << "Неккоректный ввод" << endl;
 	 	}
 	}
-	deleteList(telephoneList);
+	deleteStack(telephoneStack);
 }

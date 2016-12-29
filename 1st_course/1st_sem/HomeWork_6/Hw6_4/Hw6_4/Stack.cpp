@@ -1,6 +1,8 @@
 ﻿#include "stack.h";
 #include <iostream>
 #include <string>
+#include "MergeSort.h"
+
 
 using namespace std;
 
@@ -31,17 +33,17 @@ Record pop(Stack *&head)
 	return oldRecord;
 }
 
-void printList(Stack *head)
+void printStack(Stack *head)
 {	
 	Stack *printHead = head;
-	while (printHead!= nullptr)
+	while (printHead != nullptr)
 	{
 		cout << printHead->record.name << " " << printHead->record.number << endl;
 		printHead = printHead->next;
 	}
 }
 
-void deleteList(Stack *&head)
+void deleteStack(Stack *&head)
 {
 	while (head->next)
 	{
@@ -65,10 +67,10 @@ int sizeOfStack(Stack *&head)
 
 Stack *invertStack(Stack *&head)
 {
-	Stack *newList = nullptr;
+	Stack *newStack = nullptr;
 	while (head)
 	{
-		push(pop(head), newList);
+		push(pop(head), newStack);
 	}
-	return newList;
+	return newStack;
 }

@@ -1,10 +1,5 @@
 #pragma once
 
-#include <string>
-#include "MergeSort.h"
-
-using namespace std;
-
 struct Record;
 
 struct Stack;
@@ -16,10 +11,10 @@ void push(Record newRecord, Stack *&head);
 Record pop(Stack *&head);
 
 //Print stack
-void printList(Stack *head);
+void printStack(Stack *head);
 
 //Delete stack
-void deleteList(Stack *&head);
+void deleteStack(Stack *&head);
 
 //Count size of stack
 int sizeOfStack(Stack *&head);
