@@ -2,21 +2,18 @@
 #include <cstdio>
 #include <iostream>
 #include "stack.h"
+#include <string>
 
 int const sizeOfExample = 256;
 
 using namespace std;
 
-int main()
+string *sortStation(const string &example)
 {
-	setlocale(LC_ALL, "RUSSIAN");
-	char example[sizeOfExample] = {};
-	printf("Введите пример: ");
-	gets_s(example);
-	char outExample[sizeOfExample] = {};
 	int position = 0;
-	List *stack = nullptr;
-	for (int i = 0; i < strlen(example); i++)
+	Stack *stack = nullptr;
+	string outExample[sizeOfExample] = {};
+	for (int i = 0; i < example.length(); i++)
 	{
 		if ((example[i] >= '0') && (example[i] <= '9'))
 		{
@@ -43,7 +40,7 @@ int main()
 		}
 		if ((example[i] == '+') || (example[i] == '-') || (example[i] == '/') || (example[i] == '*'))
 		{
-			if (((example[i] == '+') || (example[i] == '-') || ((example[i] == '*') && (headOfStack(stack) != '-') && (headOfStack(stack) != '+')) || ((example[i] == '/') && (headOfStack(stack) != (headOfStack(stack) != '-')) && (headOfStack(stack) != '+'))) && stack && headOfStack(stack) != '(' )
+			if (((example[i] == '+') || (example[i] == '-') || ((example[i] == '*') && (headOfStack(stack) != '-') && (headOfStack(stack) != '+')) || ((example[i] == '/') && (headOfStack(stack) != (headOfStack(stack) != '-')) && (headOfStack(stack) != '+'))) && stack && headOfStack(stack) != '(')
 			{
 				outExample[position] = pop(stack);
 				position++;
@@ -60,14 +57,23 @@ int main()
 		outExample[position] = ' ';
 		position++;
 	}
+	delete stack;
+	return outExample;
+}
+
+int main()
+{
+	setlocale(LC_ALL, "RUSSIAN");
+	string example = {};
+	cout << "Введите пример: ";
+	cin >> example[sizeOfExample];
+	string *outExample = sortStation(example);
 	cout << "Пример после сортировочной станции: ";
-	for (int i = 0; i < strlen(outExample); i++)
+	for (int i = 0; i < outExample->length(); i++)
 	{
 		cout << outExample[i];
 	}
 	cout << endl;
-	delete stack;
-	stack = nullptr;
 	system("pause");
 	return 0;
 }

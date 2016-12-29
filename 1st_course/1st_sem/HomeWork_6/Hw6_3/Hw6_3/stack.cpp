@@ -1,41 +1,44 @@
 #include "stack.h";
 #include <cstdio>
+#include <iostream>
 
-struct List
+using namespace std;
+
+struct Stack
 {
 	int value;
-	List *next;
+	Stack *next;
 };
 
-void push(int value, List *&head)
+void push(int value, Stack *&head)
 {
-	head = new List{ value, head };
+	head = new Stack{ value, head };
 }
 
-int pop(List *&head)
+int pop(Stack *&head)
 {
 	if (!head)
 	{
 		return 0;
 	}
 	int number = head->value;
-	List *oldHead = head;
+	Stack *oldHead = head;
 	head = head->next;
 	delete  oldHead;
 	return number;
 }
 
-void printList(List *head)
+void printStack(Stack *head)
 {
-	List printHead = *head;
-	while (printHead.next != nullptr)
+	Stack *printHead = head;
+	while (printHead)
 	{
-		printf("%d %s", printHead.value, "\n");
-		printHead = *printHead.next;
+		cout << printHead->value << endl;
+		printHead = printHead->next;
 	}
 }
 
-void deleteList(List *&head)
+void deleteStack(Stack *&head)
 {
 	while (head->next)
 	{
@@ -45,7 +48,7 @@ void deleteList(List *&head)
 	head = nullptr;
 }
 
-int headOfStack(List *&head)
+int headOfStack(Stack *&head)
 {
 	if (!head)
 	{
