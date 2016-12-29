@@ -4,24 +4,30 @@
 
 using namespace std;
 
-void push(int value, List *&head)
+struct Stack
 {
-	List * newListElement = new List{ value, head };
-	head = newListElement;
+	int value;
+	Stack *next;
+};
+
+void push(int value, Stack *&head)
+{
+	Stack * newStackElement = new Stack{ value, head };
+	head = newStackElement;
 }
 
-int pop(List *&head)
+int pop(Stack *&head)
 {
 	int number = head->value;
-	List *oldHead = head;
+	Stack *oldHead = head;
 	head = head->next;
 	delete  oldHead;
 	return number;
 }
 
-void printList(List *head)
+void printStack(Stack *head)
 {
-	List *printHead = head;
+	Stack *printHead = head;
 	while (printHead)
 	{
 		cout << printHead->value + 1 << " ";
@@ -30,7 +36,7 @@ void printList(List *head)
 	cout << endl << endl;
 }
 
-void deleteList(List *&head)
+void deleteStack(Stack *&head)
 {
 	while (head)
 	{
@@ -38,4 +44,16 @@ void deleteList(List *&head)
 	}
 	delete head;
 	head = nullptr;
+}
+
+int getValue(Stack *&head)
+{
+	int timeValue = pop(head);
+	push(timeValue, head);
+	return timeValue;
+}
+
+Stack *getNextHead(Stack *head)
+{
+	return head->next;
 }

@@ -1,19 +1,21 @@
 #pragma once
 
-struct List
-{
-	int value;
-	List *next;
-};
+struct Stack;
 
 //Add element to stack
-void push(int addToStack, List *&head);
+void push(int addToStack, Stack *&head);
 
 //Delete element from stack
-int pop(List *&head);
+int pop(Stack *&head);
 
 //Print all stack
-void printList(List *head);
+void printStack(Stack *head);
 
-//Delete all List
-void deleteList(List *&head);
+//Delete all Stack
+void deleteStack(Stack *&head);
+
+//Get value from the head
+int getValue(Stack *&head);
+
+//Get next head
+Stack *getNextHead(Stack *head);

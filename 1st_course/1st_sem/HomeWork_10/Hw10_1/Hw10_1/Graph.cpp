@@ -24,7 +24,7 @@ int **createDoubleArray(int sizeOfGraph)
 
 int **loadDataFromFile(ifstream &inputFile, int numberOfCities)
 {
-	int numberOfRoads;
+	int numberOfRoads = 0;
 	inputFile >> numberOfRoads;
 	int **mapOfWorld = createDoubleArray(numberOfCities);
 	for (int i = 0; i < numberOfRoads;i++)
@@ -61,20 +61,21 @@ int foundingOfMinDistance(int **mapOfWorld, bool isCityÑaptured[], int numberOfC
 	}
 }
 
-int foundingOfTheNearestFreeCity(int **map, List *&listWithCities, bool isCityÑaptured[], int numberOfCities)
+int foundingOfTheNearestFreeCity(int **map, Stack *&StackWithCities, bool isCityÑaptured[], int numberOfCities)
 {
-	List *copyOfList = listWithCities;
+	Stack *copyOfStack = nullptr;
 	int CityWithNearestFreeCity = 0;
 	int minDistance = INT_MAX;
-	while (copyOfList)
+	while (StackWithCities)
 	{
-		if (foundingOfMinDistance(map, isCityÑaptured, numberOfCities, copyOfList->value) < minDistance && foundingOfMinDistance(map, isCityÑaptured, numberOfCities, copyOfList->value) != -1)
+		if (foundingOfMinDistance(map, isCityÑaptured, numberOfCities, getValue(StackWithCities)) < minDistance && foundingOfMinDistance(map, isCityÑaptured, numberOfCities, getValue(StackWithCities)) != -1)
 		{
-			minDistance = foundingOfMinDistance(map, isCityÑaptured, numberOfCities, copyOfList->value);
-			CityWithNearestFreeCity = copyOfList->value;
+			minDistance = foundingOfMinDistance(map, isCityÑaptured, numberOfCities, getValue(StackWithCities));
+			CityWithNearestFreeCity = getValue(StackWithCities);
 		}
-		copyOfList = copyOfList->next;
+		push(pop(StackWithCities), copyOfStack);
 	}
+	StackWithCities = copyOfStack;
 	int i = 0;
 	if (minDistance == INT_MAX)
 	{
@@ -97,20 +98,43 @@ bool isAllCitiesCaptured(bool isCityÑaptured[], int numberOfCities)
 	return flag;
 }
 
-List **creatingCoutries(ifstream &inputFile, int countOfCapitals)
+void printMap(Stack **mapOfCountries, int numberOfCountries)
+{
+	for (int i = 0; i < numberOfCountries; i++)
+	{
+		cout << "Cities of " << i + 1 << " country ";
+		printStack(mapOfCountries[i]);
+	}
+}
+
+void deleteMap(Stack **&mapOfcountries, int numberOfCountries)
+{
+	for (int i = 0; i < numberOfCountries; i++)
+	{
+		deleteStack(mapOfcountries[i]);
+	}
+	delete[] mapOfcountries;
+	mapOfcountries = nullptr;
+}
+
+void creatingCoutries(ifstream &inputFile)
 {
 	int numberOfCities = 0;
 	inputFile >> numberOfCities;
 	int **mapOfWorld = loadDataFromFile(inputFile, numberOfCities);
 	bool *isCityÑaptured = new bool[numberOfCities] {false};
-	List **citiesOfCountries = new List*[countOfCapitals]{nullptr};
+	int countOfCapitals = 0;
+	inputFile >> countOfCapitals;
+	Stack **citiesOfCountries = new Stack*[countOfCapitals]{nullptr};
 	for (int i = 0; i < countOfCapitals; i++)
 	{
-		isCityÑaptured[i] = true;
-		push(i, citiesOfCountries[i]);
+		int capital = 0;
+		inputFile >> capital;
+		isCityÑaptured[capital - 1] = true;
+		push(capital - 1, citiesOfCountries[i]);
 	}
-	int i = countOfCapitals;
-	while(!isAllCitiesCaptured(isCityÑaptured, numberOfCities))
+	int i = 0;
+	while (!isAllCitiesCaptured(isCityÑaptured, numberOfCities))
 	{
 		int newCity = foundingOfTheNearestFreeCity(mapOfWorld, citiesOfCountries[i % countOfCapitals], isCityÑaptured, numberOfCities);
 		if (newCity != 0)
@@ -121,24 +145,6 @@ List **creatingCoutries(ifstream &inputFile, int countOfCapitals)
 		i++;
 	}
 	deleteMatrix(mapOfWorld, numberOfCities);
-	return citiesOfCountries;
-}
-
-void printMap(List **mapOfCountries, int numberOfCountries)
-{
-	for (int i = 0; i < numberOfCountries; i++)
-	{
-		cout << "Cities of " << i + 1 << " country ";
-		printList(mapOfCountries[i]);
-	}
-}
-
-void deleteMap(List **&mapOfcountries, int numberOfCountries)
-{
-	for (int i = 0; i < numberOfCountries; i++)
-	{
-		deleteList(mapOfcountries[i]);
-	}
-	delete[] mapOfcountries;
-	mapOfcountries = nullptr;
+	printMap(citiesOfCountries, countOfCapitals);
+	deleteMap(citiesOfCountries, countOfCapitals);
 }
