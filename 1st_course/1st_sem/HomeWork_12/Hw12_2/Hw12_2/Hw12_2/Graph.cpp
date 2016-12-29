@@ -4,11 +4,11 @@
 
 using namespace std;
 
-void deleteMatrix(int **matrix, int sizeOfMatrix)
+void deleteMatrix(int **&matrix, int sizeOfMatrix)
 {
 	for (int i = 0; i < sizeOfMatrix; i++)
 	{
-		delete matrix[i];
+		delete[] matrix[i];
 	}
 	delete matrix;
 	matrix = nullptr;
@@ -59,19 +59,20 @@ int foundingOfMinDistance(int nameOfRoot, bool isRootUsed[], int **matrix, int s
 
 int foundingTheNearestRoot(Stack *&stackOfRoots, bool isRootUsed[], int **matrix, int sizeOfMatrix)
 {
-	Stack *cursor = stackOfRoots;
+	Stack *cursor = nullptr;
 	int minDistance = INT_MAX;
 	int theNearestRoot = -1;
-	while (cursor)
+	while (stackOfRoots)
 	{
-		int checkDistance = foundingOfMinDistance(valueFromHead(cursor), isRootUsed, matrix, sizeOfMatrix);
+		int checkDistance = foundingOfMinDistance(valueFromHead(stackOfRoots), isRootUsed, matrix, sizeOfMatrix);
 		if (minDistance > checkDistance && checkDistance != -1)
 		{
 			minDistance = checkDistance;
 			theNearestRoot = valueFromHead(cursor);
 		}
-		cursor = nextHead(cursor);
+		push(pop(stackOfRoots), cursor);
 	}
+	stackOfRoots = cursor;
 	if (minDistance != INT_MAX)
 	{
 		return theNearestRoot;
@@ -93,7 +94,7 @@ int foundingRoot(int nameOfRoot, bool isRootUsed[], int **matrix, int sizeOfMatr
 	}
 }
 
-int **transFormingGraphToStack(ifstream &inputFile, int sizeOfMatrix)
+int **transFormingGraphToOstTree(ifstream &inputFile, int sizeOfMatrix)
 {
 	int **matrix = loadMatrixFromFile(inputFile, sizeOfMatrix);
 	bool *isRootUsed = new bool[sizeOfMatrix] {false};
@@ -107,6 +108,7 @@ int **transFormingGraphToStack(ifstream &inputFile, int sizeOfMatrix)
 		int minDistance = foundingOfMinDistance(theNearestRoot, isRootUsed, matrix, sizeOfMatrix);
 		int newRoot = foundingRoot(theNearestRoot, isRootUsed, matrix, sizeOfMatrix, minDistance);
 		minOstTreeMatrix[theNearestRoot][newRoot] = minDistance;
+		minOstTreeMatrix[newRoot][theNearestRoot] = minDistance;
 		push(newRoot, stackOfRoots);
 		isRootUsed[newRoot] = true;
 	}

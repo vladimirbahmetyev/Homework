@@ -6,7 +6,7 @@
 using namespace std;
 
 //Delete Matrix
-void deleteMatrix(int **matrix, int sizeOfMatrix);
+void deleteMatrix(int **&matrix, int sizeOfMatrix);
 
 //Create Matrix
 int **createMatrix(int sizeOfMatrix);
@@ -24,7 +24,7 @@ int foundingTheNearestRoot(Stack *&StackOfRoots, bool isRootUsed[], int **matrix
 int foundingRoot(int nameOfRoot, bool isRootUsed[], int **matrix, int sizeOfMatrix, int minDistance);
 
 //Transform graph to Stack
-int **transFormingGraphToStack(ifstream &inputFile, int sizeOfMatrix);
+int **transFormingGraphToOstTree(ifstream &inputFile, int sizeOfMatrix);
 
 //Cheking twst with key
 bool checkingForTest(Stack *&testStack, Stack *&keyStack);

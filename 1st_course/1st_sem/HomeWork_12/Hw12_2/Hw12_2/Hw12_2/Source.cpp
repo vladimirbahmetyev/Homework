@@ -9,7 +9,7 @@ void main()
 	ifstream inputFile("inputFile.txt");
 	int sizeOfMatrix = 0;
 	inputFile >> sizeOfMatrix;
-	int **ostTree = transFormingGraphToStack(inputFile, sizeOfMatrix);
+	int **ostTree = transFormingGraphToOstTree(inputFile, sizeOfMatrix);
 	inputFile.close();
 	cout << "Min ost tree :" << endl;
 	printMatrix(ostTree, sizeOfMatrix);
