@@ -1,0 +1,2 @@
+/*program**/ */doesn't// /*works*/ /*correctly!*/ / //*Wow!*/ 
+/*/It *////*is */not// //*a*//* wonderfull *///*program!****/
