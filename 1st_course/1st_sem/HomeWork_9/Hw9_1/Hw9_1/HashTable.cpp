@@ -1,4 +1,8 @@
 #include "HashTable.h"
+#include <string>
+#include "Stack.h"
+
+using namespace std;
 
 int hashKey(const string &word, int sizeOfHashTable)
 {

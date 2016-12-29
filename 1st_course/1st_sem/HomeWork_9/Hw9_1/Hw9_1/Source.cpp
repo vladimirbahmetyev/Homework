@@ -1,5 +1,10 @@
+#include "Stack.h"
 #include "HashTable.h"
 #include <fstream>
+#include <string>
+#include <iostream>
+
+using namespace std;
 
 int const sizeOfHashTable = 10000;
 

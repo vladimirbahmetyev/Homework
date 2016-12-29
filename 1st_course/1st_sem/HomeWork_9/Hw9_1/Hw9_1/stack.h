@@ -1,11 +1,5 @@
 #pragma once
 
-#include <cstdio>
-#include <string>
-#include <iostream>
-
-using namespace std;
-
 struct Stack;
 
 //Add element to Stack

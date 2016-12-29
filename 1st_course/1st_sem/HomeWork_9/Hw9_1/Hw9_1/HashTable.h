@@ -1,7 +1,5 @@
 #pragma once
 
-#include "stack.h"
-
 //Add  word to hashTable
 void addElementToHashTable(Stack *head[], int sizeOfHashTable,const string &word);
 
