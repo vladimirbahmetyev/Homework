@@ -4,7 +4,7 @@
 #include "stack.h"
 #include <string>
 
-int const sizeOfExample = 256;
+const int sizeOfExample = 50;
 
 using namespace std;
 
@@ -12,7 +12,7 @@ string *sortStation(const string &example)
 {
 	int position = 0;
 	Stack *stack = nullptr;
-	string outExample[sizeOfExample] = {};
+	string *outExample = new string[sizeOfExample];
 	for (int i = 0; i < example.length(); i++)
 	{
 		if ((example[i] >= '0') && (example[i] <= '9'))
@@ -61,19 +61,17 @@ string *sortStation(const string &example)
 	return outExample;
 }
 
-int main()
+void main()
 {
 	setlocale(LC_ALL, "RUSSIAN");
 	string example = {};
 	cout << "Введите пример: ";
-	cin >> example[sizeOfExample];
+	getline(cin, example);
 	string *outExample = sortStation(example);
 	cout << "Пример после сортировочной станции: ";
-	for (int i = 0; i < outExample->length(); i++)
+	for (int i = 0; i < sizeOfExample; i++)
 	{
 		cout << outExample[i];
 	}
 	cout << endl;
-	system("pause");
-	return 0;
 }
