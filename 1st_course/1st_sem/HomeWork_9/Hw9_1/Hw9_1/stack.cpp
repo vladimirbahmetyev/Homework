@@ -1,4 +1,9 @@
-#include "stack.h";
+#include "stack.h"
+#include <cstdio>
+#include <string>
+#include <iostream>
+
+using namespace std;
 
 struct Stack
 {
@@ -9,9 +14,7 @@ struct Stack
 
 void push(int value, const string &word, Stack *&head)
 {
-	Stack * newStackElement = new Stack{ value, word, head };
-	head = newStackElement;
-	newStackElement = nullptr;
+	head = new Stack{ value, word, head };
 }
 
 Stack pop(Stack *&head)
@@ -23,7 +26,7 @@ Stack pop(Stack *&head)
 	return returnStack;
 }
 
-void printStack(Stack *&head)
+void printStack(Stack *head)
 {
 	Stack *printHead = head;
 	while (printHead->next)
@@ -43,7 +46,7 @@ void deleteStack(Stack *&head)
 	head = nullptr;
 }
 
-int countStack(Stack *&head)
+int countStack(Stack *head)
 {
 	if (!head)
 	{
@@ -56,7 +59,7 @@ int countStack(Stack *&head)
 	return (1 + countStack(head->next));
 }
 
-bool addWordOrIncrieseCountOfWord(Stack *&head,const string &word)
+bool addWordOrIncrieseCountOfWord(Stack *&head, const string &word)
 {
 	Stack *cursor = head;
 	while (cursor)

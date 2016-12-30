@@ -1,9 +1,13 @@
 #include "HashTable.h"
+#include <string>
+#include "stack.h"
+
+using namespace std;
 
 int hashKey(const string &word, int sizeOfHashTable)
 {
 	int hash = 1;
-	for (int i = 0; i < size(word); i++)
+	for (int i = 0; i < word.length(); i++)
 	{
 		hash = (144 + (int)word[i]) * hash + i - sizeOfHashTable + 144 + 666 + 777;
 	}
