@@ -1,8 +1,6 @@
 ﻿#include "stack.h";
 #include <iostream>
 #include <string>
-#include "MergeSort.h"
-
 
 using namespace std;
 
@@ -73,4 +71,14 @@ Stack *invertStack(Stack *&head)
 		push(pop(head), newStack);
 	}
 	return newStack;
+}
+
+Stack *nextHead(Stack *&head)
+{
+	return head->next;
+}
+
+Record getRecord(Stack *&head)
+{
+	return head->record;
 }

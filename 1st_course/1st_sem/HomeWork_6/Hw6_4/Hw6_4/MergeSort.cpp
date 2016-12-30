@@ -12,12 +12,6 @@ struct Record
 	int number;
 };
 
-struct Stack
-{
-	Record record;
-	Stack *next;
-};
-
 Stack *mergeSort(Stack *&stack, int typeOfSort)
 {
 	int size = sizeOfStack(stack);
@@ -40,7 +34,7 @@ Stack *mergeSort(Stack *&stack, int typeOfSort)
 		{
 		case 1:
 		{
-			if (firstList->record.name > secondList->record.name)
+			if (getRecord(firstList).name > getRecord(secondList).name)
 			{
 				push(pop(firstList), finalList);
 			}
@@ -52,7 +46,7 @@ Stack *mergeSort(Stack *&stack, int typeOfSort)
 		}
 		case 2:
 		{
-			if (firstList->record.number > secondList->record.number)
+			if (getRecord(firstList).number > getRecord(secondList).number)
 			{
 				push(pop(firstList), finalList);
 			}
@@ -105,12 +99,12 @@ void test1()
 	loadFromFile(testList);
 	testList = mergeSort(testList, 1);
 	testList = invertStack(testList);
-	Stack *cursor = testList;
 	bool flag = true;
-	while (cursor->next)
+	while (nextHead(testList))
 	{
-		flag = flag && (cursor->record.name < cursor->next->record.name);
-		cursor = cursor->next;
+		Stack *timeHead = nextHead(testList);
+		flag = flag && (getRecord(testList).name < getRecord(timeHead).name);
+		pop(testList);
 	}
 	if (flag)
 	{
@@ -129,12 +123,12 @@ void test2()
 	loadFromFile(testList);
 	testList = mergeSort(testList, 2);
 	testList = invertStack(testList);
-	Stack *cursor = testList;
 	bool flag = true;
-	while (cursor->next)
+	while (nextHead(testList))
 	{
-		flag = flag && (cursor->record.number < cursor->next->record.number);
-		cursor = cursor->next;
+		Stack *timeHead = nextHead(testList);
+		flag = flag && (getRecord(testList).number < getRecord(timeHead).number);
+		pop(testList);
 	}
 	if (flag)
 	{

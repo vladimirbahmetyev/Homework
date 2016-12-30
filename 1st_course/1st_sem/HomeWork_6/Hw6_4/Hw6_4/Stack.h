@@ -21,3 +21,9 @@ int sizeOfStack(Stack *&head);
 
 //Invert Stack
 Stack *invertStack(Stack *&head);
+
+//Get next Head
+Stack *nextHead(Stack *&head);
+
+//Get record from head
+Record getRecord(Stack *&head);
